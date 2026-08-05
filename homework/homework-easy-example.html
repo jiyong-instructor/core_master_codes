@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>감정 일기 과제 예시 간단한 참고</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            color: #222222;
+        }
+
+        .페이지 {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .상단영역 {
+            margin-bottom: 20px;
+        }
+
+        .제목 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .배너 {
+            margin-top: 20px;
+            padding: 40px;
+            border-radius: 30px;
+            background-color: #ece6de;
+        }
+
+        .배너제목 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .배너설명 {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .메뉴 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .메뉴 div {
+            padding-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .활성메뉴 {
+            border-bottom: 3px solid #111111;
+        }
+
+        .큰영역 {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .일기목록영역 {
+            width: 700px;
+        }
+
+        .일기등록영역 {
+            width: 380px;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        .소제목 {
+            margin-top: 0;
+        }
+
+        .일기목록 {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .카드 {
+            width: 340px;
+            padding: 20px;
+            border-radius: 24px;
+        }
+
+        .카드-행복 {
+            background-color: #f9dada;
+        }
+
+        .카드-슬픔 {
+            background-color: #d9f3f8;
+        }
+
+        .카드-화남 {
+            background-color: #e2e2e2;
+        }
+
+        .카드-놀람 {
+            background-color: #fbf0ca;
+        }
+
+        .카드-보통 {
+            background-color: #e5d3f6;
+        }
+
+        .카드윗부분 {
+            margin-bottom: 14px;
+            text-align: center;
+            font-size: 64px;
+        }
+
+        .카드감정날짜 {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .카드제목 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .카드내용 {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .입력영역 {
+            margin-bottom: 16px;
+        }
+
+        .입력제목 {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .감정라디오그룹 {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .감정라디오그룹 label {
+            padding: 8px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 20px;
+            background-color: #fafafa;
+        }
+
+        .글입력,
+        .내용입력 {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 12px;
+        }
+
+        .내용입력 {
+            height: 140px;
+        }
+
+        .등록버튼 {
+            width: 100%;
+            padding: 14px 0;
+            border: none;
+            border-radius: 12px;
+            background-color: #111111;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        const 일기목록데이터 = [
+            {
+                감정: '슬퍼요',
+                제목: '비가 와서 조용했던 날',
+                내용: '오늘은 비가 와서 집에서 푹 쉬었습니다.',
+                날짜: '2026. 08. 04',
+                이모지: '😢',
+                카드클래스: '카드-슬픔'
+            },
+            {
+                감정: '놀랐어요',
+                제목: '친구가 갑자기 찾아왔어요',
+                내용: '예상하지 못했던 방문이라 깜짝 놀랐습니다.',
+                날짜: '2026. 08. 03',
+                이모지: '😲',
+                카드클래스: '카드-놀람'
+            }
+        ]
+
+        function 오늘날짜만들기() {
+            const 오늘 = new Date()
+            const 연도 = 오늘.getFullYear()
+            const 월 = String(오늘.getMonth() + 1).padStart(2, '0')
+            const 일 = String(오늘.getDate()).padStart(2, '0')
+            return `${연도}. ${월}. ${일}`
+        }
+
+        function 감정정보가져오기(감정이름) {
+            if (감정이름 === '행복해요') {
+                return { 이모지: '😊', 카드클래스: '카드-행복' }
+            }
+
+            if (감정이름 === '슬퍼요') {
+                return { 이모지: '😢', 카드클래스: '카드-슬픔' }
+            }
+
+            if (감정이름 === '화나요') {
+                return { 이모지: '😠', 카드클래스: '카드-화남' }
+            }
+
+            if (감정이름 === '놀랐어요') {
+                return { 이모지: '😲', 카드클래스: '카드-놀람' }
+            }
+
+            return { 이모지: '🙂', 카드클래스: '카드-보통' }
+        }
+
+        function 일기카드한개만들기(일기, 번호) {
+            return `
+                <div class="카드 ${일기.카드클래스}" onclick="일기상세보기(${번호})">
+                    <div class="카드윗부분">${일기.이모지}</div>
+                    <div class="카드감정날짜">
+                        <span>${일기.감정}</span>
+                        <span>${일기.날짜}</span>
+                    </div>
+                    <h3 class="카드제목">${일기.제목}</h3>
+                    <p class="카드내용">${일기.내용}</p>
+                </div>
+            `
+        }
+
+        function 처음일기그리기() {
+            document.getElementById('일기목록').innerHTML =
+                일기카드한개만들기(일기목록데이터[0], 0) +
+                일기카드한개만들기(일기목록데이터[1], 1)
+        }
+
+        function 선택한감정가져오기() {
+            if (document.getElementById('emotion-happy').checked) {
+                return '행복해요'
+            }
+
+            if (document.getElementById('emotion-sad').checked) {
+                return '슬퍼요'
+            }
+
+            if (document.getElementById('emotion-angry').checked) {
+                return '화나요'
+            }
+
+            if (document.getElementById('emotion-surprised').checked) {
+                return '놀랐어요'
+            }
+
+            return '그냥그래요'
+        }
+
+        function 일기등록하기() {
+            const 감정 = 선택한감정가져오기()
+            const 제목 = document.getElementById('title').value
+            const 내용 = document.getElementById('content').value
+
+            if (제목 === '' || 내용 === '') {
+                alert('제목과 내용을 입력해 주세요!')
+                return
+            }
+
+            const 감정정보 = 감정정보가져오기(감정)
+
+            const 새로운일기 = {
+                감정: 감정,
+                제목: 제목,
+                내용: 내용,
+                날짜: 오늘날짜만들기(),
+                이모지: 감정정보.이모지,
+                카드클래스: 감정정보.카드클래스
+            }
+
+            일기목록데이터.push(새로운일기)
+
+            const 마지막번호 = 일기목록데이터.length - 1
+            document.getElementById('일기목록').innerHTML =
+                document.getElementById('일기목록').innerHTML +
+                일기카드한개만들기(일기목록데이터[마지막번호], 마지막번호)
+
+            document.getElementById('title').value = ''
+            document.getElementById('content').value = ''
+            document.getElementById('emotion-happy').checked = true
+        }
+
+        function 일기상세보기(번호) {
+            const 선택한일기 = 일기목록데이터[번호]
+
+            alert(
+                `감정: ${선택한일기.감정}\n날짜: ${선택한일기.날짜}\n\n제목: ${선택한일기.제목}\n\n내용: ${선택한일기.내용}`
+            )
+        }
+
+        window.onload = () => {
+            처음일기그리기()
+        }
+    </script>
+</head>
+<body>
+    <div class="페이지">
+        <div class="상단영역">
+            <h1 class="제목">민지의 감정 일기</h1>
+            <div class="배너">
+                <h2 class="배너제목">오늘 감정을 간단하게 남겨 보세요.</h2>
+                <p class="배너설명">
+                    CSS section01의 박스모델, flex, flex-wrap과 JS section01의 배열, 객체, 함수,
+                    템플릿 리터럴, window.onload만으로 만든 과제 예시입니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="메뉴">
+            <div class="활성메뉴">일기보관함</div>
+            <div>사진보관함</div>
+        </div>
+
+        <div class="큰영역">
+            <div class="일기목록영역">
+                <h2 class="소제목">일기 목록</h2>
+                <div class="일기목록" id="일기목록"></div>
+            </div>
+
+            <div class="일기등록영역">
+                <h2 class="소제목">일기 등록</h2>
+
+                <div class="입력영역">
+                    <div class="입력제목">오늘의 기분</div>
+                    <div class="감정라디오그룹">
+                        <label>
+                            <input type="radio" name="emotion" id="emotion-happy" checked /> 행복해요
+                        </label>
+                        <label>
+                            <input type="radio" name="emotion" id="emotion-sad" /> 슬퍼요
+                        </label>
+                        <label>
+                            <input type="radio" name="emotion" id="emotion-angry" /> 화나요
+                        </label>
+                        <label>
+                            <input type="radio" name="emotion" id="emotion-surprised" /> 놀랐어요
+                        </label>
+                        <label>
+                            <input type="radio" name="emotion" id="emotion-normal" /> 그냥그래요
+                        </label>
+                    </div>
+                </div>
+
+                <div class="입력영역">
+                    <div class="입력제목">제목</div>
+                    <input class="글입력" id="title" type="text" placeholder="제목을 입력하세요." />
+                </div>
+
+                <div class="입력영역">
+                    <div class="입력제목">내용</div>
+                    <textarea class="내용입력" id="content" placeholder="내용을 입력하세요."></textarea>
+                </div>
+
+                <button class="등록버튼" onclick="일기등록하기()">일기 등록하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

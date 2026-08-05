@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>배열 실습</title>
+    <script>
+        const 태그1개만들기 = () => {
+            document.getElementById("태그보여주는곳").innerHTML = `
+                <h1>사과</h1>
+            `
+        }
+
+        const 태그3개만들기 = () => {
+
+            // ["<h1>철수는 0번째</h1>", "<h1>영희는 1번째</h1>", "<h1>훈이는 2번째</h1>"]
+            const 친구들 = ["철수", "영희", "훈이"]
+            const 내가만든HTML = 친구들.map((el, index) => `
+                <h1>${el}는 ${index}번째</h1>
+            `)
+
+            // <h1>철수는 0번째</h1><h1>영희는 1번째</h1><h1>훈이는 2번째</h1>
+            document.getElementById("태그보여주는곳2").innerHTML = 내가만든HTML.join("")
+        }
+    </script>
+</head>
+<body>
+    <!-- 예제 -->
+    <div id="태그보여주는곳"></div>
+    <button onclick="태그1개만들기()">태그 1개 만들기</button>
+
+    <div id="태그보여주는곳2"></div>
+    <button onclick="태그3개만들기()">태그 3개 만들기</button>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- 실전 -->
+    <button>친구 등록</button>
+    <button>친구 조회</button>
+    <div></div>
+</body>
+</html>

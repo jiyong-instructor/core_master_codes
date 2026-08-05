@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Transform with Transition 실습</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 150px;
+            background-color: green;
+
+            transition: 
+                transform 1s,
+                background-color 1s;
+        }
+        .box:hover {
+            transform: rotate(180deg);
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+</body>
+</html>

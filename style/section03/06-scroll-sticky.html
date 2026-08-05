@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>스티키 스크롤 실습</title>
+    <style>
+        .Parent {
+            width: 200px;
+            height: 300px;
+            border: 1px solid blue;
+            overflow: scroll;
+        }
+        .Child {
+            width: 150px;
+            height: 200px;
+            margin: 10px;
+            background-color: lightblue;
+        }
+        .sticky_header {
+            position: sticky;
+            top: 0;
+            /* background-color: lightcoral; */
+            height: 50px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="Parent">
+        <div class="sticky_header">Sticky Header</div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 감정일기 예시</title>
+  <style>
+    /* 여기서는 색상/그림자 같은 공통 디자인 값을 먼저 모아둬요. */
+    :root {
+      --bg: #f6f3ee;
+      --panel: #ffffff;
+      --text: #1f1f1f;
+      --subtext: #666;
+      --line: #e7dfd6;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      --happy: #fff4c7;
+      --sad: #dff2ff;
+      --blue: #d9f0ff;
+      --purple: #eadcff;
+      --gray: #eef0f3;
+      --pink: #ffe1e8;
+      --button: #1f1f1f;
+    }
+
+    /* 기본 여백/크기 계산을 먼저 통일해두면 레이아웃이 훨씬 편해요. */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* 페이지 전체 분위기(폰트, 배경, 기본 글자색)를 잡아줘요. */
+    body {
+      margin: 0;
+      font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: linear-gradient(180deg, #faf8f5 0%, #f4f0ea 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* 공통 버튼/입력 스타일 시작점이에요. */
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* .page는 실제 콘텐츠를 담는 메인 컨테이너예요. */
+    .page {
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* 위쪽은 전체 구조를 잡는 영역이에요. */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .topbar small {
+      color: var(--subtext);
+      font-weight: 500;
+    }
+
+    /* 배너는 소개 문구 + 일러스트를 2칸으로 배치해요. */
+    .banner {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 16px;
+      align-items: stretch;
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #fff 0%, #f1ede6 100%);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .banner-copy h1 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.2;
+    }
+
+    .banner-copy p {
+      margin: 0;
+      color: var(--subtext);
+      line-height: 1.7;
+    }
+
+    .banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-top: 16px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #4b4b4b;
+      font-size: 14px;
+    }
+
+    .banner-illustration {
+      min-height: 160px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 30% 35%, rgba(255, 193, 122, 0.55), transparent 24%),
+        radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.85), transparent 26%),
+        linear-gradient(135deg, #f6efe6 0%, #eadfce 100%);
+      display: grid;
+      place-items: center;
+      color: #7b6e5f;
+      font-size: 48px;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-illustration::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -20px auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      filter: blur(6px);
+    }
+
+    .section {
+      margin-bottom: 26px;
+    }
+
+    /* 섹션 제목줄(타이틀 + 설명)을 정돈해서 보여줘요. */
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--subtext);
+      font-size: 14px;
+    }
+
+    .tabs,
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* 탭/필터/액션 버튼들의 공통 모양을 한 번에 관리해요. */
+    .tab,
+    .filter-btn,
+    .link-btn,
+    .form-btn,
+    .mini-btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 10px 14px;
+      background: #fff;
+      color: #222;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    .tab.active,
+    .filter-btn.active {
+      background: var(--button);
+      color: #fff;
+    }
+
+    /* 검색창 + 필터를 보기 좋게 한 줄에 배치하는 영역이에요. */
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 14px;
+      padding: 12px 16px;
+      background: var(--button);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* 카드 목록은 가로로 정렬하고, 두 장씩 줄바꿈되게 해요. */
+    .diary-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    /* 카드 하나의 기본 모양이에요. */
+    .diary-card {
+      border-radius: 20px;
+      background: #fff;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 마우스를 올리면 살짝 흐려지고 커지게 해요. */
+    .diary-card:hover {
+      filter: blur(0.2px);
+      transform: scale(1.1);
+      z-index: 2;
+    }
+
+    .diary-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .diary-mood {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .diary-date {
+      font-size: 12px;
+      color: var(--subtext);
+      white-space: nowrap;
+    }
+
+    .diary-thumb {
+      width: 100%;
+      min-height: 120px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 44px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    /* 기분별 카드 배경색을 클래스별로 나눠둔 부분이에요. */
+    .thumb-happy { background: var(--happy); }
+    .thumb-sad { background: var(--sad); }
+    .thumb-blue { background: var(--blue); }
+    .thumb-purple { background: var(--purple); }
+    .thumb-gray { background: var(--gray); }
+    .thumb-pink { background: var(--pink); }
+
+    .diary-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .diary-card p {
+      margin: 0;
+      color: #444;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .diary-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .diary-link {
+      font-size: 13px;
+      color: #666;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px dashed var(--line);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      color: var(--subtext);
+    }
+
+    /* 등록폼과 상세영역을 나란히 보여주는 2단 레이아웃이에요. */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .form-panel,
+    .detail-panel {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 22px;
+    }
+
+    .form-fields {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* 입력창은 너무 딱딱해 보이지 않게 배경/테두리를 부드럽게 줘요. */
+    .field input[type="text"],
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      outline: none;
+      background: #fafafa;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .mood-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mood-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fafafa;
+      cursor: pointer;
+    }
+
+    .mood-option input {
+      margin: 0;
+    }
+
+    .form-btn {
+      width: 100%;
+      background: var(--button);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* 수정완료 버튼은 눌렀을 때 살짝 기울어지게 해요. */
+    .form-btn:active {
+      transform: rotate(-6deg);
+    }
+
+    .detail-box {
+      border-radius: 18px;
+      background: #faf8f5;
+      border: 1px solid var(--line);
+      padding: 18px;
+      margin-top: 14px;
+      min-height: 190px;
+    }
+
+    .detail-box h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .detail-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--subtext);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .detail-content {
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+    }
+
+    /* 상세보기 아래 버튼 묶음(이동/수정/해제) 영역이에요. */
+    .detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .link-btn,
+    .mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+    }
+
+    .link-btn {
+      background: #f7f3ec;
+    }
+
+    .mini-btn.primary {
+      background: var(--button);
+      color: #fff;
+      border-color: var(--button);
+    }
+
+    .hint {
+      margin-top: 10px;
+      color: var(--subtext);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      color: var(--subtext);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    /* 작은 화면에서는 세로 1열로 자연스럽게 바뀌게 해줘요. */
+    @media (max-width: 860px) {
+      .banner,
+      .form-grid,
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .diary-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 상단 제목이에요. 페이지가 무엇인지 바로 알려줘요. -->
+    <div class="topbar">
+      <div>민지의 다이어리</div>
+      <small>과제 예시 파일</small>
+    </div>
+
+    <!-- 배너는 화면의 첫 인상을 만들어줘요. -->
+    <section class="banner">
+      <div class="banner-copy">
+        <h1>오늘의 기분을 남기는 작은 일기장</h1>
+        <p>
+          이 예시는 section02까지 배운 내용만으로 만든 연습 파일이에요.
+          너무 어렵지 않게, 목록과 등록, 상세보기, 저장 기능을 한 화면에 모아놨어요.
+        </p>
+        <div class="banner-badge">배운 내용만으로 하나씩 따라 해보면 좋아요</div>
+      </div>
+      <div class="banner-illustration" aria-hidden="true">✎</div>
+    </section>
+
+    <!-- 메뉴는 같은 페이지 안에서 이동할 수 있게 도와줘요. -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>내비게이션</h2>
+          <p>원하는 영역으로 바로 이동해요.</p>
+        </div>
+        <div class="tabs">
+          <a class="tab active" href="#diary-list-area">일기목록</a>
+          <a class="tab" href="#register-area">일기등록</a>
+          <a class="tab" href="#detail-area">일기상세</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 필터와 검색은 목록을 보기 좋게 도와줘요. -->
+    <section class="section" id="diary-list-area">
+      <div class="section-head">
+        <div>
+          <h2>일기목록</h2>
+          <p>카드는 map으로 만들고, filter로 골라서 보여줘요.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <span>🔎</span>
+          <input id="searchInput" type="text" placeholder="제목이나 내용을 검색해보세요">
+        </div>
+
+        <!-- 필터 버튼은 mood 값을 바꾸는 예시에요. -->
+        <div class="filters" id="filterButtons"></div>
+      </div>
+
+      <div class="diary-list" id="diaryList"></div>
+    </section>
+
+    <!-- 등록 폼이에요. 라디오 버튼으로 기분을 고를 수 있게 했어요. -->
+    <section class="section" id="register-area">
+      <div class="section-head">
+        <div>
+          <h2>일기등록</h2>
+          <p>제목, 내용, 기분을 적고 등록하면 목록 맨 뒤에 추가돼요.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-panel">
+          <form id="diaryForm">
+            <div class="form-fields">
+              <div class="field">
+                <label>오늘 기분</label>
+                <div class="mood-group">
+                  <label class="mood-option"><input type="radio" name="mood" value="행복" checked> 행복</label>
+                  <label class="mood-option"><input type="radio" name="mood" value="슬픔"> 슬픔</label>
+                  <label class="mood-option"><input type="radio" name="mood" value="우울"> 우울</label>
+                  <label class="mood-option"><input type="radio" name="mood" value="기타"> 기타</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="titleInput">제목</label>
+                <input id="titleInput" type="text" placeholder="오늘의 제목을 적어보세요" required>
+              </div>
+
+              <div class="field">
+                <label for="contentInput">내용</label>
+                <textarea id="contentInput" placeholder="오늘 있었던 일을 편하게 적어보세요" required></textarea>
+              </div>
+
+              <button class="form-btn" id="submitButton" type="submit">일기 등록하기</button>
+            </div>
+          </form>
+
+          <p class="hint">
+            이렇게 하면 좋아요: 등록을 누르면 배열에 객체가 하나씩 들어가고, localStorage에도 같이 저장돼요.
+          </p>
+        </div>
+
+        <!-- 상세 영역은 카드 클릭 후 내용을 보여주는 곳이에요. -->
+        <section class="detail-panel" id="detail-area">
+          <div class="section-head" style="margin-bottom: 10px;">
+            <div>
+              <h2>일기상세</h2>
+              <p>카드를 클릭하면 alert도 뜨고, 아래 상세 내용도 바뀌어요.</p>
+            </div>
+          </div>
+
+          <div class="detail-box" id="detailBox">
+            <h3>아직 선택한 일기가 없어요.</h3>
+            <p class="detail-content">왼쪽 목록에서 카드 하나를 눌러보세요. 상세 내용이 여기에 보여요.</p>
+          </div>
+
+          <div class="detail-actions">
+            <a class="link-btn" href="#register-area">등록으로 이동</a>
+            <button class="mini-btn primary" id="editButton" type="button" disabled>수정하기</button>
+            <button class="mini-btn" id="clearButton" type="button">선택 해제</button>
+          </div>
+
+          <p class="hint">
+            이 예시는 상세페이지를 따로 나누기 전에 먼저 연습해보는 버전이에요. 나중에는 a 태그로 별도 페이지로 이동하는 방식도 그대로 응용하면 돼요.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      저장해도 껐다 켜면 다시 보이게 localStorage를 사용했어요. 카드 정렬은 grid로 두 장씩 보이게 맞췄고, 마우스를 올리면 0.5초 동안 살짝 커지도록 했어요.
+    </p>
+  </div>
+
+  <script>
+    // 이 예시는 너무 어렵지 않게, 배운 기능만 모아서 만들었어요.
+    const STORAGE_KEY = "emotionDiaryExample";
+    const moods = ["전체", "행복", "슬픔", "우울", "기타"];
+
+    // 처음 화면에 바로 보일 샘플 데이터예요.
+    const initialDiaries = [
+      {
+        id: 1,
+        mood: "행복",
+        title: "친구랑 맛있는 간식을 먹었어요",
+        content: "오늘은 친구랑 같이 맛있는 간식을 먹어서 기분이 참 좋았어요.\n작은 일인데도 하루가 밝아지는 느낌이었어요.",
+        createdAt: "2026. 08. 01"
+      },
+      {
+        id: 2,
+        mood: "슬픔",
+        title: "조금 피곤한 하루였어요",
+        content: "오늘은 생각보다 일이 많아서 피곤했어요.\n그래도 내일은 조금 더 가볍게 시작해보고 싶어요.",
+        createdAt: "2026. 08. 02"
+      },
+      {
+        id: 3,
+        mood: "우울",
+        title: "마음이 잠깐 무거웠어요",
+        content: "오늘은 마음이 조금 무거웠어요.\n하지만 쉬어가도 괜찮다고 생각하면서 천천히 마무리했어요.",
+        createdAt: "2026. 08. 03"
+      },
+      {
+        id: 4,
+        mood: "기타",
+        title: "별일 없는 평범한 하루",
+        content: "큰 사건은 없었지만 조용하고 평범한 하루였어요.\n이런 날도 일기로 남겨두면 나중에 보기 좋아요.",
+        createdAt: "2026. 08. 04"
+      }
+    ];
+
+    // 화면 상태를 기억하는 변수들이에요.
+    // 필터/검색/선택/수정모드를 여기서 함께 관리해요.
+    let diaryListData = [];
+    let currentFilter = "전체";
+    let currentSearch = "";
+    let selectedDiaryId = null;
+    let editingDiaryId = null;
+
+    // 자주 쓰는 DOM 요소를 미리 찾아두면 코드가 깔끔해져요.
+    const diaryList = document.getElementById("diaryList");
+    const filterButtons = document.getElementById("filterButtons");
+    const diaryForm = document.getElementById("diaryForm");
+    const titleInput = document.getElementById("titleInput");
+    const contentInput = document.getElementById("contentInput");
+    const submitButton = document.getElementById("submitButton");
+    const detailBox = document.getElementById("detailBox");
+    const editButton = document.getElementById("editButton");
+    const clearButton = document.getElementById("clearButton");
+    const searchInput = document.getElementById("searchInput");
+
+    // 로컬스토리지에서 배열을 꺼내는 함수예요.
+    const loadDiaryList = () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === null) {
+        return initialDiaries;
+      }
+
+      try {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed) ? parsed : initialDiaries;
+      } catch {
+        return initialDiaries;
+      }
+    };
+
+    // 배열을 다시 저장하는 함수예요.
+    const saveDiaryList = () => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(diaryListData));
+    };
+
+    // 기분값을 화면용 이모지로 바꿔주는 도우미 함수예요.
+    const getMoodEmoji = (mood) => {
+      if (mood === "행복") return "😄";
+      if (mood === "슬픔") return "😢";
+      if (mood === "우울") return "😶";
+      return "🙂";
+    };
+
+    // 기분값을 카드 배경 클래스 이름으로 바꿔줘요.
+    const getMoodClass = (mood) => {
+      if (mood === "행복") return "☺️";
+      if (mood === "슬픔") return "thumb-sad";
+      if (mood === "우울") return "thumb-gray";
+      return "thumb-pink";
+    };
+
+    // 기분값을 사용자에게 보여줄 문장으로 바꿔줘요.
+    const getMoodLabel = (mood) => {
+      if (mood === "행복") return "행복해요";
+      if (mood === "슬픔") return "슬퍼요";
+      if (mood === "우울") return "우울해요";
+      return "기타 기분";
+    };
+
+    // 등록 날짜를 yyyy. mm. dd 형태로 맞춰주는 함수예요.
+    const getTodayText = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      return `${year}. ${month}. ${day}`;
+    };
+
+    // 라디오 버튼에서 체크된 값을 forEach로 찾아요.
+    const getSelectedMood = () => {
+      const moodInputs = document.querySelectorAll('input[name="mood"]');
+      let selectedMood = "기타";
+
+      moodInputs.forEach((input) => {
+        if (input.checked) {
+          selectedMood = input.value;
+        }
+      });
+
+      return selectedMood;
+    };
+
+    // 필터 버튼을 만들어줘요.
+    const renderFilterButtons = () => {
+      filterButtons.innerHTML = moods.map((mood) => {
+        const isActive = mood === currentFilter ? "active" : "";
+        return `<button type="button" class="filter-btn ${isActive}" data-filter="${mood}">${mood}</button>`;
+      }).join("");
+    };
+
+    // 목록 렌더링의 핵심 흐름이에요.
+    // 1) filter/검색으로 추리기 -> 2) map으로 카드 만들기 -> 3) innerHTML로 출력
+    // 목록은 map으로 만들고, filter로 골라서 보여줘요.
+    const renderDiaryList = () => {
+      const visibleList = diaryListData.filter((diary) => {
+        const matchFilter = currentFilter === "전체" || diary.mood === currentFilter;
+        const searchText = `${diary.title} ${diary.content}`.toLowerCase();
+        const matchSearch = searchText.includes(currentSearch.toLowerCase());
+        return matchFilter && matchSearch;
+      });
+
+      if (visibleList.length === 0) {
+        diaryList.innerHTML = `
+          <div class="empty-state">
+            조건에 맞는 일기가 없어요. 필터를 바꾸거나 새로운 일기를 등록해보세요.
+          </div>
+        `;
+        return;
+      }
+
+      diaryList.innerHTML = visibleList.map((diary) => {
+        return `
+          <article class="diary-card" onclick="showDiaryDetail(${diary.id})">
+            <div class="diary-card-top">
+              <div class="diary-mood">${getMoodLabel(diary.mood)}</div>
+              <div class="diary-date">${diary.createdAt}</div>
+            </div>
+
+            <div class="diary-thumb ${getMoodClass(diary.mood)}">${getMoodEmoji(diary.mood)}</div>
+
+            <h3>${diary.title}</h3>
+            <p>${diary.content.slice(0, 70)}${diary.content.length > 70 ? "..." : ""}</p>
+
+            <div class="diary-card-footer">
+              <span class="diary-link" onclick="event.stopPropagation()">
+                <a href="#detail-area">상세 보기</a>
+              </span>
+              <span class="diary-date">#${diary.mood}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    };
+
+    // 상세 박스는 "선택 없음" 상태와 "선택됨" 상태를 모두 여기서 처리해요.
+    const setDetailBox = (diary) => {
+      if (diary === undefined) {
+        detailBox.innerHTML = `
+          <h3>아직 선택한 일기가 없어요.</h3>
+          <p class="detail-content">왼쪽 목록에서 카드 하나를 눌러보세요. 상세 내용이 여기에 보여요.</p>
+        `;
+        editButton.disabled = true;
+        selectedDiaryId = null;
+        return;
+      }
+
+      detailBox.innerHTML = `
+        <h3>${diary.title}</h3>
+        <div class="detail-meta">
+          <span>${getMoodLabel(diary.mood)} ${getMoodEmoji(diary.mood)}</span>
+          <span>${diary.createdAt}</span>
+        </div>
+        <div class="detail-content">${diary.content}</div>
+      `;
+      editButton.disabled = false;
+      selectedDiaryId = diary.id;
+    };
+
+    // 카드 클릭하면 alert으로 상세 정보를 보여줘요.
+    window.showDiaryDetail = (id) => {
+      const diary = diaryListData.find((item) => item.id === id);
+      if (diary === undefined) {
+        return;
+      }
+
+      alert(`기분: ${diary.mood}\n제목: ${diary.title}\n내용: ${diary.content}`);
+      setDetailBox(diary);
+    };
+
+    // 수정 모드 시작: 선택한 일기 내용을 폼에 다시 채워 넣어요.
+    const startEditDiary = () => {
+      if (selectedDiaryId === null) {
+        return;
+      }
+
+      const diary = diaryListData.find((item) => item.id === selectedDiaryId);
+      if (diary === undefined) {
+        return;
+      }
+
+      editingDiaryId = diary.id;
+      titleInput.value = diary.title;
+      contentInput.value = diary.content;
+
+      const moodInputs = document.querySelectorAll('input[name="mood"]');
+      moodInputs.forEach((input) => {
+        input.checked = input.value === diary.mood;
+      });
+
+      submitButton.textContent = "수정완료";
+      window.location.hash = "register-area";
+    };
+
+    // 선택 해제: 수정 모드도 같이 끝내고 초기 상태로 돌려줘요.
+    const clearSelection = () => {
+      editingDiaryId = null;
+      submitButton.textContent = "일기 등록하기";
+      setDetailBox(undefined);
+    };
+
+    // 등록/수정 제출을 모두 처리하는 핵심 함수예요.
+    // editingDiaryId가 있으면 수정, 없으면 새 등록으로 동작해요.
+    const handleSubmit = (event) => {
+      event.preventDefault();
+
+      const newDiary = {
+        id: Date.now(),
+        mood: getSelectedMood(),
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        createdAt: getTodayText()
+      };
+
+      if (editingDiaryId !== null) {
+        const targetIndex = diaryListData.findIndex((item) => item.id === editingDiaryId);
+        if (targetIndex !== -1) {
+          diaryListData[targetIndex] = {
+            ...diaryListData[targetIndex],
+            mood: newDiary.mood,
+            title: newDiary.title,
+            content: newDiary.content
+          };
+        }
+        editingDiaryId = null;
+        submitButton.textContent = "일기 등록하기";
+      } else {
+        // 새 일기는 배열 맨 뒤에 넣어줘요.
+        diaryListData.push(newDiary);
+      }
+
+      // 저장이 끝나면 화면도 최신 상태로 다시 그려줘요.
+      saveDiaryList();
+      renderFilterButtons();
+      renderDiaryList();
+      setDetailBox(newDiary);
+      diaryForm.reset();
+
+      // 라디오 버튼은 다시 첫 번째로 맞춰두면 편해요.
+      const firstMood = document.querySelector('input[name="mood"][value="행복"]');
+      if (firstMood) {
+        firstMood.checked = true;
+      }
+    };
+
+    // 필터 버튼을 눌렀을 때 목록을 다시 그려요.
+    filterButtons.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-filter]");
+      if (button === null) {
+        return;
+      }
+
+      currentFilter = button.dataset.filter;
+      renderFilterButtons();
+      renderDiaryList();
+    });
+
+    // 검색창 입력이 바뀔 때마다 실시간으로 목록을 다시 필터링해요.
+    searchInput.addEventListener("input", (event) => {
+      currentSearch = event.target.value;
+      renderDiaryList();
+    });
+
+    diaryForm.addEventListener("submit", handleSubmit);
+    editButton.addEventListener("click", startEditDiary);
+    clearButton.addEventListener("click", clearSelection);
+
+    // 여기서부터는 첫 화면 초기화 단계예요.
+    // 저장 데이터 불러오기 -> 화면 그리기 -> 첫 카드 상세 보여주기 순서로 진행해요.
+    // 처음 화면을 보여주는 부분이에요.
+    diaryListData = loadDiaryList();
+    saveDiaryList();
+    renderFilterButtons();
+    renderDiaryList();
+    setDetailBox(diaryListData[0]);
+  </script>
+</body>
+</html>

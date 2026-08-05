@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>선택박스와 필터 실습</title>
+    <script>
+        const 필터링기능 = (event) => {
+            console.log(event.target) // 내가 행동한 태그 => <select />
+            console.log(event.target.value) // 태그에서 선택한 값 => "사과선택"
+
+            const 친구들 = [
+                { 이름: "철수", 좋아하는과일: "사과" },
+                { 이름: "영희", 좋아하는과일: "바나나" },
+                { 이름: "훈이", 좋아하는과일: "사과" }
+            ]
+
+            const 내가선택한과일 = event.target.value
+            if(내가선택한과일 === "사과선택") {
+                const 사과좋아하는친구들 = 친구들.filter(el => el.좋아하는과일 === "사과")
+                console.log(사과좋아하는친구들)
+            }
+            
+            /* 1. if ~ else if (전체가 하나의 그룹으로 매칭되는거 1개만 실행, 나머지는 비교 무시) */
+            /* 2. if  if  독립적으로 (각각 if문이 독립이므로, 모두 비교하게 됨) */
+            if(내가선택한과일 === "바나나선택") {
+                const 바나나좋아하는친구들 = 친구들.filter(el => el.좋아하는과일 === "바나나")
+                console.log(바나나좋아하는친구들)
+            }
+
+            /* 3. 미니퀴즈 => switch문으로 변경해보기! */
+            // switch(){
+
+            // }
+        }
+    </script>
+</head>
+<body>
+    <select onchange="필터링기능(event)">
+        <option>과일을 선택하세요</option>
+        <option value="사과선택">사과</option>
+        <option value="바나나선택">바나나</option>
+    </select>
+</body>
+</html>

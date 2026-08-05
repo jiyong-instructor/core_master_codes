@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>상세페이지</title>
+    <script>
+        const 쿼리스트링 = location.search
+        const 잘게나누어담은통 = new URLSearchParams(쿼리스트링)
+        const 친구인덱스 = 잘게나누어담은통.get("number")
+
+        const 친구들 = localStorage.getItem("친구목록")
+        const 친구목록 = JSON.parse(친구들 === null ? "[]" : 친구들)
+        // 친구목록: [{이름: "철수", 나이: 12}, {이름: "영희", 나이: 13}]
+
+        alert(`${친구목록[친구인덱스].이름}의 페이지에 오신 것을 환영합니다.`)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

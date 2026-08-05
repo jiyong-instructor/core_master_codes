@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>포지션 상대위치 실습</title>
+    <style>
+        /* 삭제버튼이 카드 위에 떠있는 느낌을 표현할 수 있어요 */
+        .카드 {
+            width: 200px;
+            height: 300px;
+            background-color: lightblue;
+        }
+        .삭제버튼 {
+            position: relative;
+            top: -300px;
+            left: 180px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="카드"></div>
+    <button class="삭제버튼">X</button>
+</body>
+</html>

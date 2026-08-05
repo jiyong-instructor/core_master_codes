@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom LOAD 실습</title>
+    <script>
+
+        // 화면이 전부다 로드되고 나서 DOM조작을 실행합니다
+
+        window.onload = () => {
+            const 내이름 = prompt("이름을 입력해주세요");
+            document.getElementById("이름표시하는곳").innerText = 내이름
+        }
+    </script>
+</head>
+
+<body>
+    <span id="이름표시하는곳"></span>의 다이어리에 오신 것을 환영합니다    
+</body>
+</html>

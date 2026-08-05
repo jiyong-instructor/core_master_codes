@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>플렉스 박스 실험</title>
+    <style>
+        .부모1 {
+            background-color: skyblue;
+            display: flex;
+            flex-direction: row;
+            width: 500px;
+            gap: 10px;
+        }
+        .자식1 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border: 5px solid red;
+        }
+        .부모2 {
+            background-color: lightgreen;
+            display: flex;
+            flex-direction: row;
+            width: 500px;
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+        .자식2 {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            border: 5px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="부모1">
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+        <div class="자식1">자식</div>
+    </div>
+    <div class="부모2">
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+        <div class="자식2">자식</div>
+</body>
+</html>

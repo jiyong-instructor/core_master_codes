@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HTML의 주요 태그와 시맨틱 태그 예제를 배우는 연습 페이지입니다.">
+    <title>HTML 태그 예제</title>
+</head>
+<body>
+    <!-- 페이지의 맨 위 영역: 보통 사이트 제목, 메뉴, 소개 문구가 들어갑니다. -->
+    <header>
+        <h1>HTML 주요 태그 연습장</h1>
+        <p>화면에 보이는 구조를 태그별로 천천히 살펴보는 예제입니다.</p>
+
+        <!-- nav는 다른 페이지나 같은 페이지의 중요한 이동 링크를 넣을 때 사용합니다. -->
+        <nav>
+            <ul>
+                <li><a href="#basic-tags">기본 태그</a></li>
+                <li><a href="#semantic-tags">시맨틱 태그</a></li>
+                <li><a href="#form-example">폼 예제</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- main은 페이지의 핵심 내용이 들어가는 영역입니다. -->
+    <main>
+        <!-- section은 비슷한 주제를 묶는 영역입니다. -->
+        <section id="basic-tags">
+            <h2>1. 자주 쓰는 기본 태그</h2>
+
+            <!-- p는 문단을 만들고, strong/em은 문장 안의 강조를 표현합니다. -->
+            <p>
+                <strong>HTML</strong>은 화면의 뼈대를 만드는 언어입니다.
+                <em>중요한 말</em>은 이렇게 강조할 수 있습니다.
+            </p>
+
+            <!-- ul과 li는 순서가 중요하지 않은 목록입니다. -->
+            <ul>
+                <li><code>&lt;h1&gt;~&lt;h6&gt;</code>: 제목 태그</li>
+                <li><code>&lt;p&gt;</code>: 문단 태그</li>
+                <li><code>&lt;span&gt;</code>: 문장 안의 작은 영역을 감싸는 태그</li>
+                <li><code>&lt;div&gt;</code>: 여러 요소를 묶는 블록 태그</li>
+                <li><code>&lt;br&gt;</code>: 줄바꿈</li>
+                <li><code>&lt;hr&gt;</code>: 내용 구분선</li>
+            </ul>
+
+            <!-- ol은 순서가 중요한 목록입니다. -->
+            <ol>
+                <li>제목을 먼저 작성합니다.</li>
+                <li>설명 문장을 덧붙입니다.</li>
+                <li>이미지와 링크를 추가합니다.</li>
+            </ol>
+
+            <!-- a는 링크를 만들 때 사용합니다. -->
+            <p>
+                더 알아보기:
+                <a href="https://developer.mozilla.org/ko/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN HTML 문서</a>
+            </p>
+
+            <!-- figure와 figcaption은 이미지와 설명을 함께 묶을 때 자주 사용합니다. -->
+            <figure>
+                <img
+                    src="https://gm-prd-resource.gentlemonster.com/catalog/product/0Q04AJXKM737S/c4476771-c1d0-4a03-bd95-59e7a5a7e0e9/11005119_LOOK_BOOK_FIRST.jpg?width=1400"
+                    alt="안경 제품이 보이는 예시 이미지"
+                >
+                <figcaption>img 태그는 이미지를 보여주고, alt 속성은 이미지를 설명합니다.</figcaption>
+            </figure>
+        </section>
+
+        <!-- article은 독립적으로 읽을 수 있는 콘텐츠를 담을 때 사용합니다. -->
+        <article>
+            <h2>2. 글과 정보 블록 예제</h2>
+            <p>article은 뉴스 글, 블로그 글, 공지처럼 혼자 떼어 읽어도 의미가 있는 내용에 잘 어울립니다.</p>
+
+            <!-- table은 표를 만들 때 사용합니다. -->
+            <table border="1">
+                <caption>기본 태그 예시 표</caption>
+                <thead>
+                    <tr>
+                        <th>태그</th>
+                        <th>역할</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>h1</td>
+                        <td>가장 큰 제목</td>
+                    </tr>
+                    <tr>
+                        <td>p</td>
+                        <td>문단</td>
+                    </tr>
+                    <tr>
+                        <td>img</td>
+                        <td>이미지</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <!-- aside는 본문 옆에 두는 보조 정보 영역입니다. -->
+        <aside>
+            <h2>3. 같이 알아두면 좋은 태그</h2>
+            <p>강조 태그, 코드 태그, 인용 태그도 자주 사용합니다.</p>
+
+            <blockquote>
+                HTML은 구조를 만들고 CSS는 스타일을 입힙니다.
+            </blockquote>
+
+            <p>
+                <code>&lt;code&gt;</code>는 코드 문장을 보여줄 때,
+                <mark>mark</mark>는 형광펜처럼 강조할 때 사용할 수 있습니다.
+            </p>
+        </aside>
+
+        <!-- section은 폼 예제처럼 주제를 분리할 때도 사용할 수 있습니다. -->
+        <section id="form-example">
+            <h2>4. 입력 폼 예제</h2>
+
+            <!-- form은 사용자가 값을 입력하는 영역입니다. -->
+            <form>
+                <p>
+                    <label for="name">이름</label>
+                    <input id="name" type="text" placeholder="이름을 입력하세요">
+                </p>
+
+                <p>
+                    <label for="email">이메일</label>
+                    <input id="email" type="email" placeholder="example@email.com">
+                </p>
+
+                <p>
+                    <label for="memo">하고 싶은 말</label>
+                    <textarea id="memo" rows="4" cols="30" placeholder="자유롭게 적어보세요"></textarea>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="checkbox"> 수업 내용을 이해했어요.
+                    </label>
+                </p>
+
+                <button type="submit">보내기</button>
+                <button type="reset">다시 쓰기</button>
+            </form>
+        </section>
+
+        <!-- 시맨틱 태그는 각 영역의 역할을 이름으로 알려주는 태그입니다. -->
+        <section id="semantic-tags">
+            <h2>5. 시맨틱 태그 예제</h2>
+
+            <ul>
+                <li><code>&lt;header&gt;</code>: 머리말 영역</li>
+                <li><code>&lt;nav&gt;</code>: 이동 메뉴</li>
+                <li><code>&lt;main&gt;</code>: 핵심 내용</li>
+                <li><code>&lt;section&gt;</code>: 주제별 구역</li>
+                <li><code>&lt;article&gt;</code>: 독립 콘텐츠</li>
+                <li><code>&lt;aside&gt;</code>: 보조 정보</li>
+                <li><code>&lt;footer&gt;</code>: 맺음말 영역</li>
+            </ul>
+
+            <p>
+                시맨틱 태그를 쓰면 사람이 읽기 쉽고, 검색 엔진과 보조 기술도 페이지 구조를 더 잘 이해할 수 있습니다.
+            </p>
+        </section>
+    </main>
+
+    <!-- footer는 페이지의 맺음말, 저작권, 연락처 등을 넣을 때 사용합니다. -->
+    <footer>
+        <p>이 예제는 HTML 태그를 눈으로 익히기 위한 연습용 페이지입니다.</p>
+    </footer>
+</body>
+</html>

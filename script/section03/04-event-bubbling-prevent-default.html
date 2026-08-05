@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>이벤트 버블링과 기본기능 막기 실습</title>
+    <script>
+        const 좋아요기능함수 = () => {
+            event.preventDefault(); // a태그의 이동 기능을 막아줍니다. 이게 없으면, 부모까지 꾸욱 눌려서 a태그의 이동 기능까지 실행되는 거죠..
+            alert("좋아요 기능이 실행되었습니다.");
+        }
+    </script>
+</head>
+<body>
+    <!-- a버튼 부모 영역이 인스타 배경 사진이라고 생각한다면, 
+     좋아요 버튼을 클릭햇을때, 좋아요 기능만 실행되게 하고 싶은데, 
+     그 배경 기능까지 실행되는 현상을 이벤트 버블링 이라고 생각하시면 이해가 편합니다.
+      -->
+    <a href="https://google.com"> 
+        <div class="button-box">
+            <button onclick="좋아요기능함수()">인스타 좋아요</button>
+        </div>
+    </a>
+</body>
+</html>

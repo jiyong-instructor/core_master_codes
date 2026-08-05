@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>스코프 체인 실습</title>
+    <script>
+        // Scope Chain
+        function 바깥에함수() {
+            const 바나나 = 10;
+            console.log("바깥에함수() 실행", 바나나);
+
+            // 안쪽에 함수를 생성
+            function 안쪽에함수() {
+                const 바나나 = 50;
+                console.log("안쪽에함수() 실행", 바나나);
+            }
+
+            console.log("바깥에함수() 실행 후 안쪽에함수() 실행 전", 바나나);
+
+            안쪽에함수();
+        }
+
+        바깥에함수();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

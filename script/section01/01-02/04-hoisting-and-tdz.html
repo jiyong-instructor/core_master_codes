@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호이스팅과 TDZ 실습</title>
+    <script>
+        // console.log(내가만든옛날변수);
+
+        // var 내가만든옛날변수 = "옛날 변수의 값";
+
+        // console.log(내가만든요즘변수);
+
+        // console.log(내가만든요즘변수);
+        // console.log(내가만든요즘변수2);
+
+        // let 내가만든요즘변수 = "요즘 변수의 값";
+        // const 내가만든요즘변수2 = "요즘 변수의 값2";
+
+
+        ///////////////////////////////////
+
+        console.log(옛날함수1);
+        console.log(요즘함수1);
+        console.log(요즘함수2);
+
+        // 함수선언식
+        function 옛날함수1() {
+            console.log("옛날 함수1");
+        }
+
+        // 함수표현식
+        const 요즘함수1 = function() {
+            console.log("요즘 함수1");
+        }
+
+        // 화살표함수
+        const 요즘함수2 = () => {
+            console.log("요즘 함수2");
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>목록페이지</title>
+    <script>
+        const 친구등록기능 = () => {
+            const 친구1 = {
+                이름: "철수",
+                나이: 12
+            }
+            const 친구2 = {
+                이름: "영희",
+                나이: 13
+            }
+            const 친구들 = [친구1, 친구2]
+            localStorage.setItem("친구목록", JSON.stringify(친구들))
+        }
+
+        const 친구조회기능 = () => {
+            // 1. 친구목록 로컬스토리지에서 가져오기
+            const 친구들 = localStorage.getItem("친구목록")
+            const 친구목록배열 = JSON.parse(친구들 === null ? "[]" : 친구들)
+
+            // 2. 배열을 반복하여 태그 만들기
+            const 친구목록HTML = 친구목록배열.map((el, index) => `
+                <div>
+                    <a href="./02-routing2-detail.html?number=${index}">
+                        이름은 ${el.이름}이고, 나이는 ${el.나이}살 입니다.
+                    </a>
+                </div>
+            `).join("") // map 뒤에서 바로 .join("") 하는 것도 가능함 => 친구목록HTML.join("") 동일
+
+            // 3. HTML 최종 삽입하기
+            document.getElementById("친구목록").innerHTML = 친구목록HTML
+        }
+    </script>
+</head>
+<body>
+    <button onclick="친구등록기능()">친구 등록하기</button>
+    <button onclick="친구조회기능()">친구 조회하기</button>
+    <div id="친구목록"></div>
+</body>
+</html>

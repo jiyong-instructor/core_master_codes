@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>윈도우 함수 이벤트 리스너 실습 : 스크롤 편</title>
+    <script>
+        window.addEventListener("scroll", () => {
+            const 스크롤이내려간길이 = window.scrollY;
+            console.log("스크롤이 내려간 길이 : ", 스크롤이내려간길이, "px"); // 사용자가 스크롤을 내린 위치 값을 얻어낼 수 있어요;
+
+            if(스크롤이내려간길이 > 0) {
+                document.getElementById("image").style.width = "500px";
+            } else {
+                document.getElementById("image").style.width = "1000px";
+            }
+
+        } )
+    </script>
+</head>
+<body>
+    <img id="image" src="./00-image.png" width="1000px" />
+</body>
+</html>

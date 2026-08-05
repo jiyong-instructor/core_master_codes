@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>호이스팅 실습</title>
+    <script>
+        // 함수호이스팅: 아래에서 만든 함수를 위에서 실행 
+        내가만든함수();
+
+        function 내가만든함수() {
+            console.log("함수를 실행해봅니다");
+        }
+
+        // 변수호이스팅: 아래에서 만든 변수를 위에서 실행
+
+        console.log(내가만든변수); // undefined, 변수호이스팅 때문에 선언은 끌어올려지지만 값은 아직 할당되지 않음
+
+        var 내가만든변수 = "변수의 값";
+
+        console.log(내가만든변수); // 변수의 값
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

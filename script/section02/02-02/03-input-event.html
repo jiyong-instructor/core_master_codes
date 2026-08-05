@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>이벤트와 필터 실습</title>
+    <script>
+        const 인풋검증기능 = (event) => {
+            console.log(event.target) // 내가 입력한 태그 => <input />
+            console.log(event.target.value) // 내가 입력한 값
+        }
+    </script>
+</head>
+<body>
+    <input type="text" oninput="인풋검증기능(event)" />
+    
+    <!-- document.getElementById().value 말고, event.target.value 로 통합하자! -->
+    <input id="이름ID" type="text" oninput="인풋검증기능(event)" /> <!-- document.getElementById("이름ID").value -->
+    <input id="나이ID" type="text" oninput="인풋검증기능(event)" /> <!-- document.getElementById("나이ID").value -->
+    <input id="학교ID" type="text" oninput="인풋검증기능(event)" /> <!-- document.getElementById("학교ID").value -->
+</body>
+</html>

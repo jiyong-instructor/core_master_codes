@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트버블링 전파중단 실습</title>
+    <style>
+        .사진 {
+            width: 300px;
+            height: 500px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script>
+        const 상대방프로필로이동하는기능 = () => {
+            window.location.href = "https://www.google.com";
+        }
+
+        const 좋아요기능 = (event) => {
+            event.stopPropagation(); // 이벤트 전파를 중단합니다. 상대방프로필로이동하는 기능은 실행되지 않게되어요!
+            alert("좋아요+1 되었습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id="프로필사진배경" class="사진" onclick="상대방프로필로이동하는기능()">
+        <button onclick="좋아요기능(event)">💝</button>
+    </div>
+</body>
+</html>

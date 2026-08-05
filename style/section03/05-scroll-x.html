@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>가로스크롤 실습</title>
+    <style>
+        .Parent {
+            width: 200px;
+            height: 300px;
+            border: 1px solid blue;
+            display: flex;
+            flex-direction: row;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+        .Child {
+            width: 150px;
+            height: 200px;
+            margin: 10px;
+            background-color: lightblue;
+            flex-shrink: 0; /* 자식 요소가 부모 요소보다 작아지지 않도록 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="Parent">
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+        <div class="Child"></div>
+    </div>
+</body>
+</html>

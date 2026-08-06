@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지용이의 뭔가 슬픈 다이어리 상세페이지</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: #111111;
+            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+        }
+
+        button,
+        input {
+            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .페이지 {
+            width: 1168px;
+            min-height: 100vh;
+            margin: 0 auto;
+        }
+
+        .상단 {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+        }
+
+        .로고 {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .다크모드 {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        /* 다크모드는 모양만 있고 실제 기능은 없어요. */
+        .스위치 {
+            width: 48px;
+            height: 28px;
+            padding: 4px;
+            border-radius: 20px;
+            background-color: #e3e3e3;
+        }
+
+        .스위치동그라미 {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .상세영역 {
+            margin-top: 62px;
+        }
+
+        .상세제목 {
+            padding-bottom: 14px;
+            border-bottom: 2px solid #111111;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .일기정보 {
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .감정정보 {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .감정이모지 {
+            font-size: 28px;
+        }
+
+        .감정글씨 {
+            color: #ff5b5b;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .작성일 {
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .내용제목 {
+            margin-top: 10px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .일기내용 {
+            min-height: 128px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .복사영역 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .복사버튼 {
+            border: 0;
+            background-color: white;
+            font-size: 14px;
+        }
+
+        .관리버튼영역 {
+            margin-top: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .관리버튼 {
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 14px;
+        }
+
+        .회고영역 {
+            padding-top: 24px;
+            border-top: 1px solid #777777;
+        }
+
+        .회고제목 {
+            margin-bottom: 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .회고입력영역 {
+            display: flex;
+            gap: 14px;
+        }
+
+        .회고입력 {
+            height: 48px;
+            padding: 0 16px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .회고등록버튼 {
+            width: 60px;
+            height: 48px;
+            border: 0;
+            border-radius: 8px;
+            background-color: #111111;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .회고목록 {
+            margin-top: 18px;
+        }
+
+        .회고한개 {
+            padding: 16px 0;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 14px;
+        }
+
+        .회고날짜 {
+            margin-left: 12px;
+            color: #999999;
+        }
+
+        .회고없음 {
+            padding: 55px 0;
+            color: #aaaaaa;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .위로버튼 {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #eeeeee;
+            border-radius: 50%;
+            background-color: white;
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        let 일기목록 = []
+        let 선택한일기 = {}
+        let 회고목록 = []
+
+        function 상세내용그리기() {
+            document.getElementById("상세제목").innerText = 선택한일기.제목
+            document.getElementById("감정이모지").innerText = 선택한일기.이모지
+            document.getElementById("감정글씨").innerText = 선택한일기.감정
+            document.getElementById("감정글씨").style.color = 감정색가져오기(선택한일기.감정)
+            document.getElementById("작성일").innerText = 선택한일기.날짜 + "  작성"
+            document.getElementById("일기내용").innerText = 선택한일기.내용
+        }
+
+        function 감정색가져오기(감정) {
+            if (감정 === "행복해요") return "#ff5b5b"
+            if (감정 === "슬퍼요") return "#29b6d6"
+            if (감정 === "놀랐어요") return "#dd9d20"
+            if (감정 === "화나요") return "#777777"
+            return "#b252df"
+        }
+
+        function 처음화면준비하기() {
+            const 주소값 = new URLSearchParams(location.search)
+            const 일기번호 = 주소값.get("number")
+            const 저장된일기 = localStorage.getItem("감정일기목록")
+
+            if (저장된일기 === null) {
+                alert("메인 페이지에서 일기를 먼저 확인해 주세요.")
+                location.href = "./homework-example.html"
+                return
+            }
+
+            일기목록 = JSON.parse(저장된일기)
+
+            const 찾은일기 = 일기목록.filter(function (일기) {
+                return String(일기.번호) === 일기번호
+            })
+
+            if (찾은일기.length === 0) {
+                alert("일기를 찾을 수 없습니다.")
+                location.href = "./homework-example.html"
+                return
+            }
+
+            선택한일기 = 찾은일기[0]
+            상세내용그리기()
+        }
+
+        /* clipboard 기능은 뒤에서 배우므로 지금은 안내창만 띄워요. */
+        function 내용복사하기() {
+            alert("내용 복사 기능은 아직 배우지 않아 버튼 모양만 만들었습니다.")
+        }
+
+        function 일기수정하기() {
+            const 바꿀제목 = prompt("수정할 제목을 입력해 주세요.", 선택한일기.제목)
+            if (바꿀제목 === null || 바꿀제목 === "") return
+
+            선택한일기.제목 = 바꿀제목
+            localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
+            상세내용그리기()
+        }
+
+        function 일기삭제하기() {
+            const 정말삭제할지 = confirm("이 일기를 삭제할까요?")
+            if (정말삭제할지 === false) return
+
+            일기목록 = 일기목록.filter(function (일기) {
+                return 일기.번호 !== 선택한일기.번호
+            })
+
+            localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
+            location.href = "./homework-example.html"
+        }
+
+        function 회고등록하기() {
+            const 회고내용 = document.getElementById("회고입력").value
+
+            if (회고내용 === "") {
+                alert("회고를 입력해 주세요.")
+                return
+            }
+
+            회고목록.push(회고내용)
+            document.getElementById("회고입력").value = ""
+            회고목록그리기()
+        }
+
+        function 회고목록그리기() {
+            let 회고HTML = ""
+
+            회고목록.map(function (회고) {
+                회고HTML = 회고HTML + `
+                    <div class="회고한개">
+                        ${회고}<span class="회고날짜">[2024. 09. 24]</span>
+                    </div>
+                `
+            })
+
+            if (회고HTML === "") {
+                회고HTML = '<div class="회고없음">등록된 회고가 없습니다.</div>'
+            }
+
+            document.getElementById("회고목록").innerHTML = 회고HTML
+        }
+
+        function 메인으로가기() {
+            location.href = "./homework-example.html"
+        }
+
+        function 맨위로가기() {
+            window.scrollTo({ top: 0, behavior: "smooth" })
+        }
+
+        window.onload = function () {
+            처음화면준비하기()
+            회고목록그리기()
+        }
+    </script>
+</head>
+<body>
+    <div class="페이지">
+        <div class="상단">
+            <div class="로고" onclick="메인으로가기()">지용이의 뭔가 슬픈 다이어리</div>
+            <div class="다크모드">
+                <div>다크모드</div>
+                <div class="스위치"><div class="스위치동그라미"></div></div>
+            </div>
+        </div>
+
+        <div class="상세영역">
+            <div class="상세제목" id="상세제목">이것은 타이틀 입니다.</div>
+
+            <div class="일기정보">
+                <div class="감정정보">
+                    <div class="감정이모지" id="감정이모지">😊</div>
+                    <div class="감정글씨" id="감정글씨">행복해요</div>
+                </div>
+                <div class="작성일" id="작성일">2024. 07. 12 작성</div>
+            </div>
+
+            <div class="내용제목">내용</div>
+            <div class="일기내용" id="일기내용">내용이 들어갑니다.</div>
+
+            <div class="복사영역">
+                <button class="복사버튼" onclick="내용복사하기()">▣ &nbsp; 내용 복사</button>
+            </div>
+
+            <div class="관리버튼영역">
+                <button class="관리버튼" onclick="일기수정하기()">수정</button>
+                <button class="관리버튼" onclick="일기삭제하기()">삭제</button>
+            </div>
+
+            <div class="회고영역">
+                <div class="회고제목">회고</div>
+                <div class="회고입력영역">
+                    <input class="회고입력" id="회고입력" type="text" placeholder="회고를 남겨보세요." />
+                    <button class="회고등록버튼" onclick="회고등록하기()">입력</button>
+                </div>
+                <div class="회고목록" id="회고목록"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="위로버튼" onclick="맨위로가기()">⌃</button>
+</body>
+</html>

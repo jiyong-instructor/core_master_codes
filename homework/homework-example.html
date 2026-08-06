@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지용이의 뭔가 슬픈 다이어리</title>
+    <style>
+        /* 모든 태그의 크기를 계산하기 쉽게 만들어요. */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: #111111;
+            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .페이지 {
+            width: 1168px;
+            margin: 0 auto;
+        }
+
+        /* 상단 영역이에요. */
+        .상단 {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+        }
+
+        .로고 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .다크모드 {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        /* 다크모드는 모양만 있고 실제 기능은 없어요. */
+        .스위치 {
+            width: 48px;
+            height: 28px;
+            padding: 4px;
+            border-radius: 20px;
+            background-color: #e3e3e3;
+        }
+
+        .스위치동그라미 {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        /* 사진 대신 이모지로 만든 1168 x 246 배너예요. */
+        .배너 {
+            width: 1168px;
+            height: 246px;
+            border-radius: 24px;
+            background-color: #f3f0e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 108px;
+            letter-spacing: 28px;
+        }
+
+        /* 탭과 검색 영역이에요. */
+        .탭 {
+            height: 82px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-end;
+        }
+
+        .탭버튼 {
+            padding: 0 8px 12px 8px;
+            color: #aaaaaa;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .선택된탭 {
+            color: #111111;
+            border-bottom: 3px solid #111111;
+        }
+
+        .검색영역 {
+            height: 94px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .검색왼쪽 {
+            display: flex;
+            gap: 14px;
+        }
+
+        .감정선택 {
+            width: 120px;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid #dddddd;
+            border-radius: 9px;
+            background-color: white;
+            font-size: 15px;
+        }
+
+        .검색창 {
+            width: 320px;
+            height: 48px;
+            padding: 0 18px;
+            border: 1px solid #dddddd;
+            border-radius: 24px;
+            font-size: 15px;
+        }
+
+        .글쓰기버튼 {
+            height: 48px;
+            padding: 0 20px;
+            border: 0;
+            border-radius: 8px;
+            background-color: #111111;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* 일기 카드 영역이에요. */
+        .일기목록 {
+            display: flex;
+            gap: 36px 24px;
+            flex-wrap: wrap;
+            min-height: 400px;
+        }
+
+        .카드 {
+            width: 274px;
+            cursor: pointer;
+        }
+
+        .사진상자 {
+            width: 274px;
+            height: 206px;
+            border-radius: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .행복배경 {
+            background-color: #ffe0e0;
+        }
+
+        .슬픔배경 {
+            background-color: #dcf8fb;
+        }
+
+        .놀람배경 {
+            background-color: #fff6d8;
+        }
+
+        .화남배경 {
+            background-color: #e2e2e2;
+        }
+
+        .기타배경 {
+            background-color: #ead3fa;
+        }
+
+        .이모지원 {
+            width: 148px;
+            height: 148px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 78px;
+        }
+
+        .삭제버튼 {
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            border: 1px solid #dddddd;
+            border-radius: 50%;
+            background-color: white;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 17px;
+            line-height: 20px;
+        }
+
+        .카드정보 {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .날짜 {
+            color: #999999;
+        }
+
+        .행복글씨 {
+            color: #ff5b5b;
+        }
+
+        .슬픔글씨 {
+            color: #29b6d6;
+        }
+
+        .놀람글씨 {
+            color: #dd9d20;
+        }
+
+        .화남글씨 {
+            color: #777777;
+        }
+
+        .기타글씨 {
+            color: #b252df;
+        }
+
+        .카드제목 {
+            margin-top: 12px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .결과없음 {
+            width: 100%;
+            padding: 100px 0;
+            color: #999999;
+            text-align: center;
+        }
+
+        /* 하단 영역이에요. */
+        .하단바깥 {
+            margin-top: 80px;
+            background-color: #f5f5f5;
+        }
+
+        .하단 {
+            width: 1168px;
+            height: 150px;
+            margin: 0 auto;
+            padding-top: 28px;
+        }
+
+        .하단제목 {
+            margin-bottom: 25px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .하단글씨 {
+            margin-top: 12px;
+            color: #aaaaaa;
+            font-size: 13px;
+        }
+
+        .위로버튼 {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #eeeeee;
+            border-radius: 50%;
+            background-color: white;
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            font-size: 20px;
+        }
+
+        /* 글쓰기 모달이에요. */
+        .모달배경 {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.48);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .모달 {
+            width: 650px;
+            padding: 28px 30px 24px 30px;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        .모달제목 {
+            margin-bottom: 34px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .입력묶음 {
+            margin-bottom: 22px;
+        }
+
+        .입력라벨 {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .감정목록 {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .감정목록 label {
+            font-size: 14px;
+        }
+
+        .제목입력,
+        .내용입력 {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .내용입력 {
+            height: 125px;
+            resize: none;
+        }
+
+        .모달버튼영역 {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .닫기버튼,
+        .등록버튼 {
+            width: 104px;
+            height: 48px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .닫기버튼 {
+            border: 1px solid #222222;
+            background-color: white;
+        }
+
+        .등록버튼 {
+            border: 0;
+            background-color: #111111;
+            color: white;
+        }
+
+        .등록버튼:disabled {
+            background-color: #cccccc;
+            cursor: default;
+        }
+    </style>
+    <script>
+        /* 처음 화면에 보여 줄 예시 데이터예요. */
+        const 기본일기목록 = [
+            { 번호: 1, 감정: "슬퍼요", 이모지: "😢", 날짜: "2024. 03. 12", 제목: "비가 와서 조금 울적했던 날", 내용: "비 오는 창밖을 보며 조용히 하루를 보냈다." },
+            { 번호: 2, 감정: "놀랐어요", 이모지: "😲", 날짜: "2024. 03. 12", 제목: "친구가 깜짝 선물을 주었다", 내용: "생각하지 못한 선물을 받아서 정말 놀랐다." },
+            { 번호: 3, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 12", 제목: "버스를 눈앞에서 놓쳤다", 내용: "조금만 빨리 나올 걸 하는 생각이 들었다." },
+            { 번호: 4, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 12", 제목: "좋아하는 사람들과 맛있는 저녁", 내용: "함께 이야기하고 웃어서 행복한 하루였다." },
+            { 번호: 5, 감정: "기타", 이모지: "🤔", 날짜: "2024. 03. 11", 제목: "오늘은 생각이 많았던 하루", 내용: "앞으로 하고 싶은 일을 천천히 정리해 보았다." },
+            { 번호: 6, 감정: "놀랐어요", 이모지: "😲", 날짜: "2024. 03. 11", 제목: "갑자기 눈이 내리기 시작했다", 내용: "봄인 줄 알았는데 눈이 와서 신기했다." },
+            { 번호: 7, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 11", 제목: "할 일이 한꺼번에 몰려왔다", 내용: "하나씩 차근차근 해 보기로 마음먹었다." },
+            { 번호: 8, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 11", 제목: "산책길에서 예쁜 꽃을 발견했다", 내용: "작은 꽃 덕분에 기분이 좋아졌다." },
+            { 번호: 9, 감정: "슬퍼요", 이모지: "😢", 날짜: "2024. 03. 10", 제목: "기대했던 약속이 취소되었다", 내용: "아쉬웠지만 집에서 편안하게 쉬었다." },
+            { 번호: 10, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 10", 제목: "컴퓨터가 갑자기 멈춰 버렸다", 내용: "작성하던 내용을 잃어서 속상했다." },
+            { 번호: 11, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 10", 제목: "오랜만에 푹 쉬었던 일요일", 내용: "늦잠도 자고 좋아하는 영화도 보았다." }
+        ]
+
+        let 일기목록 = []
+        let 선택한감정 = "전체"
+        let 입력한검색어 = ""
+
+        /* 감정에 맞는 배경색과 글씨색을 알려 주는 함수예요. */
+        function 감정배경가져오기(감정) {
+            if (감정 === "행복해요") return "행복배경"
+            if (감정 === "슬퍼요") return "슬픔배경"
+            if (감정 === "놀랐어요") return "놀람배경"
+            if (감정 === "화나요") return "화남배경"
+            return "기타배경"
+        }
+
+        function 감정글씨가져오기(감정) {
+            if (감정 === "행복해요") return "행복글씨"
+            if (감정 === "슬퍼요") return "슬픔글씨"
+            if (감정 === "놀랐어요") return "놀람글씨"
+            if (감정 === "화나요") return "화남글씨"
+            return "기타글씨"
+        }
+
+        /* 일기 한 개를 카드 HTML로 바꾸는 함수예요. */
+        function 카드한개만들기(일기) {
+            return `
+                <div class="카드" onclick="상세페이지가기(${일기.번호})">
+                    <div class="사진상자 ${감정배경가져오기(일기.감정)}">
+                        <div class="이모지원">${일기.이모지}</div>
+                        <button class="삭제버튼" onclick="일기삭제하기(event, ${일기.번호})">×</button>
+                    </div>
+                    <div class="카드정보">
+                        <div class="${감정글씨가져오기(일기.감정)}">${일기.감정}</div>
+                        <div class="날짜">${일기.날짜}</div>
+                    </div>
+                    <div class="카드제목">${일기.제목}</div>
+                </div>
+            `
+        }
+
+        /* 받은 배열을 반복해서 화면에 넣어요. */
+        function 일기목록그리기(보여줄목록) {
+            let 카드HTML = ""
+
+            보여줄목록.map(function (일기) {
+                카드HTML = 카드HTML + 카드한개만들기(일기)
+            })
+
+            if (카드HTML === "") {
+                카드HTML = '<div class="결과없음">검색 결과가 없습니다.</div>'
+            }
+
+            document.getElementById("일기목록").innerHTML = 카드HTML
+        }
+
+        /* localStorage에 저장된 일기를 준비해요. */
+        function 처음화면준비하기() {
+            const 저장된일기 = localStorage.getItem("감정일기목록")
+
+            if (저장된일기 === null) {
+                일기목록 = 기본일기목록
+                localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
+            } else {
+                일기목록 = JSON.parse(저장된일기)
+            }
+
+            일기목록그리기(일기목록)
+        }
+
+        /* select 또는 input이 바뀌면 조건에 맞는 일기만 찾아요. */
+        function 일기검색하기() {
+            const 검색결과 = 일기목록.filter(function (일기) {
+                const 감정이맞는지 = 선택한감정 === "전체" || 일기.감정 === 선택한감정
+                const 제목에있는지 = 일기.제목.indexOf(입력한검색어) !== -1
+                return 감정이맞는지 && 제목에있는지
+            })
+
+            일기목록그리기(검색결과)
+        }
+
+        function 감정바꾸기(event) {
+            선택한감정 = event.target.value
+            일기검색하기()
+        }
+
+        function 검색어바꾸기(event) {
+            입력한검색어 = event.target.value
+            일기검색하기()
+        }
+
+        function 상세페이지가기(번호) {
+            location.href = "./homework-detail.html?number=" + 번호
+        }
+
+        function 일기삭제하기(event, 번호) {
+            event.stopPropagation()
+
+            const 정말삭제할지 = confirm("이 일기를 삭제할까요?")
+            if (정말삭제할지 === false) return
+
+            일기목록 = 일기목록.filter(function (일기) {
+                return 일기.번호 !== 번호
+            })
+
+            localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
+            일기검색하기()
+        }
+
+        function 모달열기() {
+            document.getElementById("모달배경").style.display = "flex"
+        }
+
+        function 모달닫기() {
+            document.getElementById("모달배경").style.display = "none"
+        }
+
+        function 선택한감정가져오기() {
+            if (document.getElementById("행복").checked) return "행복해요"
+            if (document.getElementById("슬픔").checked) return "슬퍼요"
+            if (document.getElementById("놀람").checked) return "놀랐어요"
+            if (document.getElementById("화남").checked) return "화나요"
+            return "기타"
+        }
+
+        function 감정이모지가져오기(감정) {
+            if (감정 === "행복해요") return "😊"
+            if (감정 === "슬퍼요") return "😢"
+            if (감정 === "놀랐어요") return "😲"
+            if (감정 === "화나요") return "😠"
+            return "🤔"
+        }
+
+        function 등록버튼확인하기() {
+            const 제목 = document.getElementById("제목").value
+            const 내용 = document.getElementById("내용").value
+            document.getElementById("등록버튼").disabled = 제목 === "" || 내용 === ""
+        }
+
+        function 일기등록하기() {
+            const 감정 = 선택한감정가져오기()
+            const 오늘 = new Date()
+            const 날짜 = 오늘.getFullYear() + ". " + (오늘.getMonth() + 1) + ". " + 오늘.getDate()
+
+            const 새일기 = {
+                번호: 오늘.getTime(),
+                감정: 감정,
+                이모지: 감정이모지가져오기(감정),
+                날짜: 날짜,
+                제목: document.getElementById("제목").value,
+                내용: document.getElementById("내용").value
+            }
+
+            일기목록.push(새일기)
+            localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
+
+            document.getElementById("제목").value = ""
+            document.getElementById("내용").value = ""
+            document.getElementById("행복").checked = true
+            document.getElementById("등록버튼").disabled = true
+
+            모달닫기()
+            일기검색하기()
+        }
+
+        function 맨위로가기() {
+            window.scrollTo({ top: 0, behavior: "smooth" })
+        }
+
+        window.onload = function () {
+            처음화면준비하기()
+        }
+    </script>
+</head>
+<body>
+    <div class="페이지">
+        <div class="상단">
+            <div class="로고">지용이의 뭔가 슬픈 다이어리</div>
+            <div class="다크모드">
+                <div>다크모드</div>
+                <div class="스위치"><div class="스위치동그라미"></div></div>
+            </div>
+        </div>
+
+        <div class="배너">🛏️ 📔 ☕</div>
+
+        <div class="탭">
+            <div class="탭버튼 선택된탭">일기보관함</div>
+            <div class="탭버튼">사진보관함</div>
+        </div>
+
+        <div class="검색영역">
+            <div class="검색왼쪽">
+                <select class="감정선택" onchange="감정바꾸기(event)">
+                    <option value="전체">전체</option>
+                    <option value="행복해요">행복해요</option>
+                    <option value="슬퍼요">슬퍼요</option>
+                    <option value="놀랐어요">놀랐어요</option>
+                    <option value="화나요">화나요</option>
+                    <option value="기타">기타</option>
+                </select>
+                <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
+            </div>
+            <button class="글쓰기버튼" onclick="모달열기()">＋ 일기쓰기</button>
+        </div>
+
+        <div class="일기목록" id="일기목록"></div>
+    </div>
+
+    <div class="하단바깥">
+        <div class="하단">
+            <div class="하단제목">지용이의 뭔가 슬픈 다이어리</div>
+            <div class="하단글씨">대표 : 슬픈지용</div>
+            <div class="하단글씨">Copyright © 2024. 슬픈지용 Co., Ltd.</div>
+        </div>
+    </div>
+
+    <button class="위로버튼" onclick="맨위로가기()">⌃</button>
+
+    <div class="모달배경" id="모달배경" onclick="모달닫기()">
+        <div class="모달" onclick="event.stopPropagation()">
+            <div class="모달제목">일기 쓰기</div>
+
+            <div class="입력묶음">
+                <div class="입력라벨"><b>오늘 기분은 어땠나요?</b></div>
+                <div class="감정목록">
+                    <label><input id="행복" type="radio" name="emotion" checked /> 행복해요</label>
+                    <label><input id="슬픔" type="radio" name="emotion" /> 슬퍼요</label>
+                    <label><input id="놀람" type="radio" name="emotion" /> 놀랐어요</label>
+                    <label><input id="화남" type="radio" name="emotion" /> 화나요</label>
+                    <label><input id="기타" type="radio" name="emotion" /> 기타</label>
+                </div>
+            </div>
+
+            <div class="입력묶음">
+                <div class="입력라벨">제목</div>
+                <input class="제목입력" id="제목" type="text" placeholder="제목을 입력해 주세요." oninput="등록버튼확인하기()" />
+            </div>
+
+            <div class="입력묶음">
+                <div class="입력라벨">내용</div>
+                <textarea class="내용입력" id="내용" placeholder="내용을 입력해 주세요." oninput="등록버튼확인하기()"></textarea>
+            </div>
+
+            <div class="모달버튼영역">
+                <button class="닫기버튼" onclick="모달닫기()">닫기</button>
+                <button class="등록버튼" id="등록버튼" onclick="일기등록하기()" disabled>등록하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

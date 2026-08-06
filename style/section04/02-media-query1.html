@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>미디어 쿼리 실습</title>
+    <style>
+        .네모상자 {
+            width: 300px;
+            height: 300px;
+            background-color: coral;
+        }
+
+        /* 
+            미디어 쿼리를 이용해서 특정 뷰포트 가로사이즈 기준으로 우리가 원하는 스타일을 적용할 수 있습니다.
+            미디어 쿼리 문법에 익숙해지도록 앞으로 연습을 해보세요.
+         */
+
+         /* 우리가 원하는 break-point 순간에 원하는 스타일을 적용할 수 있습니다.*/
+        @media (max-width: 500px) { 
+            .네모상자 {
+                width: 100px;
+                height: 100px;
+                background-color: skyblue;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="네모상자"></div>
+</body>
+</html>

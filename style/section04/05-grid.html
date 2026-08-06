@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>그리드 실습</title>
+    <style>
+        .부모 {
+            width: 1600px;
+            height: 1600px;
+
+            display: grid; /* display 속성에 grid를 적용하면 자식요소들이 자동으로 그리드 레이아웃이 됩니다. */
+
+            /* grid-template-columns: 300px 300px 300px; */
+            /* 4개의 열을 만들고 각 열의 너비는 300px */
+            /* grid-template-columns: repeat(4, 300px);  */
+            grid-template-columns: 1fr 1fr 1fr; /* 1 : 1 : 1 비율로 만들고 싶을때 */
+            grid-template-rows: 400px 400px 400px;
+            background-color: lightblue;
+
+            column-gap: 70px; /* 열 사이 간격 */
+            row-gap: 50px; /* 행 사이 간격 */
+
+            place-items: center center;
+            place-content: start center;
+        }
+    </style>
+</head>
+<body>
+    <div class="부모">
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+        <img src="./00-image.jpg" width="250px" height="300px" />
+    </div>
+</body>
+</html>

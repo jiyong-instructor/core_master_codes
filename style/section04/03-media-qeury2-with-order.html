@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>미디어쿼리와 순서변경 실습</title>
+    <style>
+        .부모 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .이미지영역 {
+            background-color: greenyellow;
+        }
+
+        .등록영역 {
+            width: 300px;
+            background-color: skyblue;
+        }
+
+        @media (max-width: 767px) {
+            .부모 { 
+                /* 기존의 부모 클래스의 스타일이 바뀌는 것이 아니라, 767px 이하 일때만 아래 속성이 추가적으로 추가된다 라고 생각하셔야 합니다. */
+                flex-direction: column;
+            }
+            .이미지영역 {
+                order: 2;
+                background-color: color(from color srgb r g b);
+            }
+            .등록영역 {
+                order: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="부모">
+        <div class="이미지영역">
+            <img src="./00-image.jpg" width="150px" height="150px" />
+            <img src="./00-image.jpg" width="150px" height="150px" />
+            <img src="./00-image.jpg" width="150px" height="150px" />
+            <img src="./00-image.jpg" width="150px" height="150px" />
+        </div>
+        <div class="등록영역">
+            <h1>강아지옷 등록하기</h1>
+            옷이름: <input type="text" />
+            <button>등록하기</button>
+        </div>
+    </div>
+</body>
+</html>

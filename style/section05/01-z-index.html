@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>z-index 개념 실습</title>
+    <style>
+        .red-paper {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .yellow-paper {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+
+            /* 위치변경 */
+            position: absolute;
+            top: 30px;
+            left: 30px;
+
+            z-index: 3; /* z-index 값이 높을수록 위에 위치  */
+        }
+        .blue-paper {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+
+            /* 위치변경 */
+            position: absolute;
+            top: 60px;
+            left: 60px;
+
+            z-index: 2; /* z-index 값이 높을수록 위에 위치  */
+        }
+    </style>
+</head>
+<body>
+    <div class="red-paper"></div>
+    <div class="yellow-paper"></div>
+    <div class="blue-paper"></div>
+</body>
+</html>

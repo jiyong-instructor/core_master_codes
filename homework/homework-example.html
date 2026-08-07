@@ -10,6 +10,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            font-size: 16px;
+        }
+
         body {
             margin: 0;
             color: #111111;
@@ -28,7 +32,8 @@
         }
 
         .페이지 {
-            width: 1168px;
+            width: 100%;
+            max-width: 1168px;
             margin: 0 auto;
         }
 
@@ -46,7 +51,7 @@
         }
 
         .로고 {
-            font-size: 18px;
+            font-size: 1.125rem;
             font-weight: bold;
         }
 
@@ -73,18 +78,20 @@
             background-color: white;
         }
 
-        /* 사진 대신 이모지로 만든 1168 x 246 배너예요. */
+        /* 동영상 배경도 만들수 있어요. */
         .배너 {
-            width: 1168px;
+            width: 100%;
             height: 246px;
             border-radius: 24px;
             background-color: #f3f0e8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            font-size: 108px;
-            letter-spacing: 28px;
+        }
+
+        .배너비디오 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* 탭과 검색 영역이에요. */
@@ -98,7 +105,7 @@
         .탭버튼 {
             padding: 0 8px 12px 8px;
             color: #aaaaaa;
-            font-size: 22px;
+            font-size: 1.375rem;
             font-weight: bold;
         }
 
@@ -110,13 +117,9 @@
         .검색영역 {
             height: 94px;
             display: flex;
+            gap: 14px;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .검색왼쪽 {
-            display: flex;
-            gap: 14px;
         }
 
         .감정선택 {
@@ -140,6 +143,7 @@
 
         .글쓰기버튼 {
             height: 48px;
+            margin-left: auto;
             padding: 0 20px;
             border: 0;
             border-radius: 8px;
@@ -153,12 +157,18 @@
             display: flex;
             gap: 36px 24px;
             flex-wrap: wrap;
+            justify-content: center;
             min-height: 400px;
         }
 
         .카드 {
             width: 274px;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .카드:hover {
+            transform: scale(1.03);
         }
 
         .사진상자 {
@@ -252,7 +262,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            font-size: 17px;
+            font-size: 1.0625rem;
             font-weight: bold;
         }
 
@@ -270,7 +280,8 @@
         }
 
         .하단 {
-            width: 1168px;
+            width: 100%;
+            max-width: 1168px;
             height: 150px;
             margin: 0 auto;
             padding-top: 28px;
@@ -311,6 +322,7 @@
             display: none;
             align-items: center;
             justify-content: center;
+            z-index: 20;
         }
 
         .모달 {
@@ -322,7 +334,7 @@
 
         .모달제목 {
             margin-bottom: 34px;
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
@@ -389,21 +401,176 @@
             background-color: #cccccc;
             cursor: default;
         }
+
+        /* 779px 이하에서는 모바일 화면으로 바꿔요. */
+        @media (max-width: 779px) {
+            .페이지 {
+                padding: 0 20px;
+            }
+
+            .상단 {
+                height: 64px;
+            }
+
+            .로고 {
+                font-size: 1rem;
+            }
+
+            .다크모드 {
+                gap: 6px;
+                font-size: 0.75rem;
+            }
+
+            .스위치 {
+                width: 40px;
+                height: 24px;
+            }
+
+            .스위치동그라미 {
+                width: 16px;
+                height: 16px;
+            }
+
+            .배너 {
+                height: 14rem;
+                border-radius: 20px;
+            }
+
+            .탭 {
+                height: 78px;
+                gap: 20px;
+            }
+
+            .탭버튼 {
+                padding: 0 4px 10px 4px;
+                font-size: 1rem;
+            }
+
+            .검색영역 {
+                height: auto;
+                margin: 30px 0 40px 0;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+
+            .검색창 {
+                width: 100%;
+                grid-column: 1 / 3;
+                grid-row: 1;
+            }
+
+            .감정선택 {
+                width: 96px;
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .글쓰기버튼 {
+                margin-left: 0;
+                grid-column: 2;
+                grid-row: 2;
+                justify-self: end;
+            }
+
+            /* 모바일에서는 카드가 한 줄에 2개씩 보여요. */
+            .일기목록 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 16px;
+                row-gap: 36px;
+            }
+
+            .카드,
+            .사진상자 {
+                width: 100%;
+            }
+
+            .카드 {
+                min-width: 0;
+            }
+
+            .사진상자 {
+                height: 7rem;
+                border-radius: 12px;
+            }
+
+            .이모지원 {
+                width: 5rem;
+                height: 5rem;
+                font-size: 3rem;
+            }
+
+            .삭제버튼 {
+                width: 22px;
+                height: 22px;
+                top: 8px;
+                right: 8px;
+                font-size: 15px;
+            }
+
+            .카드정보 {
+                margin-top: 12px;
+                gap: 5px;
+                font-size: 0.75rem;
+            }
+
+            .날짜 {
+                white-space: nowrap;
+            }
+
+            .카드제목 {
+                margin-top: 9px;
+                font-size: 0.875rem;
+            }
+
+            .하단바깥 {
+                margin-top: 60px;
+            }
+
+            .하단 {
+                height: 140px;
+                padding: 24px 20px 0 20px;
+            }
+
+            .위로버튼 {
+                display: none;
+            }
+
+            .모달 {
+                width: 90%;
+                padding: 24px;
+                border-radius: 22px;
+            }
+
+            .모달제목 {
+                margin-bottom: 28px;
+                font-size: 1.25rem;
+            }
+
+            .감정목록 {
+                gap: 14px;
+            }
+
+            .내용입력 {
+                height: 120px;
+            }
+        }
     </style>
     <script>
         /* 처음 화면에 보여 줄 예시 데이터예요. */
         const 기본일기목록 = [
-            { 번호: 1, 감정: "슬퍼요", 이모지: "😢", 날짜: "2024. 03. 12", 제목: "비가 와서 조금 울적했던 날", 내용: "비 오는 창밖을 보며 조용히 하루를 보냈다." },
-            { 번호: 2, 감정: "놀랐어요", 이모지: "😲", 날짜: "2024. 03. 12", 제목: "친구가 깜짝 선물을 주었다", 내용: "생각하지 못한 선물을 받아서 정말 놀랐다." },
-            { 번호: 3, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 12", 제목: "버스를 눈앞에서 놓쳤다", 내용: "조금만 빨리 나올 걸 하는 생각이 들었다." },
-            { 번호: 4, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 12", 제목: "좋아하는 사람들과 맛있는 저녁", 내용: "함께 이야기하고 웃어서 행복한 하루였다." },
-            { 번호: 5, 감정: "기타", 이모지: "🤔", 날짜: "2024. 03. 11", 제목: "오늘은 생각이 많았던 하루", 내용: "앞으로 하고 싶은 일을 천천히 정리해 보았다." },
-            { 번호: 6, 감정: "놀랐어요", 이모지: "😲", 날짜: "2024. 03. 11", 제목: "갑자기 눈이 내리기 시작했다", 내용: "봄인 줄 알았는데 눈이 와서 신기했다." },
-            { 번호: 7, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 11", 제목: "할 일이 한꺼번에 몰려왔다", 내용: "하나씩 차근차근 해 보기로 마음먹었다." },
-            { 번호: 8, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 11", 제목: "산책길에서 예쁜 꽃을 발견했다", 내용: "작은 꽃 덕분에 기분이 좋아졌다." },
-            { 번호: 9, 감정: "슬퍼요", 이모지: "😢", 날짜: "2024. 03. 10", 제목: "기대했던 약속이 취소되었다", 내용: "아쉬웠지만 집에서 편안하게 쉬었다." },
-            { 번호: 10, 감정: "화나요", 이모지: "😠", 날짜: "2024. 03. 10", 제목: "컴퓨터가 갑자기 멈춰 버렸다", 내용: "작성하던 내용을 잃어서 속상했다." },
-            { 번호: 11, 감정: "행복해요", 이모지: "😊", 날짜: "2024. 03. 10", 제목: "오랜만에 푹 쉬었던 일요일", 내용: "늦잠도 자고 좋아하는 영화도 보았다." }
+            { 번호: 1, 감정: "슬퍼요", 이모지: "😢", 날짜: "2026. 08. 12", 제목: "비가 와서 조금 울적했던 날", 내용: "비 오는 창밖을 보며 조용히 하루를 보냈다." },
+            { 번호: 2, 감정: "놀랐어요", 이모지: "😲", 날짜: "2026. 08. 12", 제목: "친구가 깜짝 선물을 주었다", 내용: "생각하지 못한 선물을 받아서 정말 놀랐다." },
+            { 번호: 3, 감정: "화나요", 이모지: "😠", 날짜: "2026. 08. 12", 제목: "버스를 눈앞에서 놓쳤다", 내용: "조금만 빨리 나올 걸 하는 생각이 들었다." },
+            { 번호: 4, 감정: "행복해요", 이모지: "😊", 날짜: "2026. 08. 12", 제목: "좋아하는 사람들과 맛있는 저녁", 내용: "함께 이야기하고 웃어서 행복한 하루였다." },
+            { 번호: 5, 감정: "기타", 이모지: "🤔", 날짜: "2026. 08. 11", 제목: "오늘은 생각이 많았던 하루", 내용: "앞으로 하고 싶은 일을 천천히 정리해 보았다." },
+            { 번호: 6, 감정: "놀랐어요", 이모지: "😲", 날짜: "2026. 08. 11", 제목: "갑자기 눈이 내리기 시작했다", 내용: "봄인 줄 알았는데 눈이 와서 신기했다." },
+            { 번호: 7, 감정: "화나요", 이모지: "😠", 날짜: "2026. 08. 11", 제목: "할 일이 한꺼번에 몰려왔다", 내용: "하나씩 차근차근 해 보기로 마음먹었다." },
+            { 번호: 8, 감정: "행복해요", 이모지: "😊", 날짜: "2026. 08. 11", 제목: "산책길에서 예쁜 꽃을 발견했다", 내용: "작은 꽃 덕분에 기분이 좋아졌다." },
+            { 번호: 9, 감정: "슬퍼요", 이모지: "😢", 날짜: "2026. 08. 10", 제목: "기대했던 약속이 취소되었다", 내용: "아쉬웠지만 집에서 편안하게 쉬었다." },
+            { 번호: 10, 감정: "화나요", 이모지: "😠", 날짜: "2026. 08. 10", 제목: "컴퓨터가 갑자기 멈춰 버렸다", 내용: "작성하던 내용을 잃어서 속상했다." },
+            { 번호: 11, 감정: "행복해요", 이모지: "😊", 날짜: "2026. 08. 10", 제목: "오랜만에 푹 쉬었던 일요일", 내용: "늦잠도 자고 좋아하는 영화도 보았다." }
         ]
 
         let 일기목록 = []
@@ -587,7 +754,11 @@
             </div>
         </div>
 
-        <div class="배너">🛏️ 📔 ☕</div>
+        <div class="배너">
+            <video class="배너비디오" autoplay muted loop playsinline>
+                <source src="https://videos.pexels.com/video-files/7333913/7333913-hd_1920_1080_30fps.mp4" type="video/mp4" />
+            </video>
+        </div>
 
         <div class="탭">
             <div class="탭버튼 선택된탭">일기보관함</div>
@@ -595,17 +766,15 @@
         </div>
 
         <div class="검색영역">
-            <div class="검색왼쪽">
-                <select class="감정선택" onchange="감정바꾸기(event)">
-                    <option value="전체">전체</option>
-                    <option value="행복해요">행복해요</option>
-                    <option value="슬퍼요">슬퍼요</option>
-                    <option value="놀랐어요">놀랐어요</option>
-                    <option value="화나요">화나요</option>
-                    <option value="기타">기타</option>
-                </select>
-                <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
-            </div>
+            <select class="감정선택" onchange="감정바꾸기(event)">
+                <option value="전체">전체</option>
+                <option value="행복해요">행복해요</option>
+                <option value="슬퍼요">슬퍼요</option>
+                <option value="놀랐어요">놀랐어요</option>
+                <option value="화나요">화나요</option>
+                <option value="기타">기타</option>
+            </select>
+            <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
             <button class="글쓰기버튼" onclick="모달열기()">＋ 일기쓰기</button>
         </div>
 

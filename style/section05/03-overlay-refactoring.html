@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오버레이 문제점 리팩토링 개념 예시</title>
+    <style>
+        .imagae-container {
+            margin: 100px;
+            position: relative;
+        }
+        .image {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+        .delete-button {
+            /* position: relative;
+            top: -200px;
+            left: 190px; */
+
+            /* 더 간결하고 문제를 수정한 코드로 아래 리팩토링 했어요 */
+            position: absolute;
+            top: 0;
+            left: 190px;
+        }
+        .image-explanation {
+            width: 200px;
+            height: 100px;
+            background-color: orange
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <div class="image"></div>
+        <button class="delete-button">X</button>
+        <div class="image-explanation">이미지 설명</div>
+
+        </div>
+    </div>
+</body>
+</html>

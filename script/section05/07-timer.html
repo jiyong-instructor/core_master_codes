@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>타이머 실습</title>
+    <style>
+        html {
+            cursor: none;
+        }
+        .나의마우스 {
+            width: 100px;
+            position: absolute;
+            z-index: 999;
+        }
+        .춘식이1 {
+            width: 100px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        .춘식이2 {
+            width: 100px;
+            position: absolute;
+            top: 300px;
+            left: 300px;
+        }
+    </style>
+    <script>
+        window.addEventListener("mousemove", (event) => {
+            const 나의마우스 = document.getElementById("나의마우스ID")
+            나의마우스.style.top = `${event.clientY + 5}px` // 마우스 클릭시 바로 아래의 망치이미지가 클릭되므로, 거리를 조금(+5px) 띄우자!
+            나의마우스.style.left = `${event.clientX + 5}px`
+        })
+
+        const 춘식이잡기기능 = (춘식이번호) => {
+            document.getElementById(춘식이번호).style = "display: none"
+
+            setTimeout(() => {
+                document.getElementById(춘식이번호).style = "display: block"
+            }, 2000)
+
+        }
+    </script>
+</head>
+<body>
+    <img src="./00-hammer.png" class="나의마우스" id="나의마우스ID" />
+    <img src="./00-image.jpg" class="춘식이1" id="춘식이1ID" onclick="춘식이잡기기능('춘식이1ID')" />
+    <img src="./00-image.jpg" class="춘식이2" id="춘식이2ID" onclick="춘식이잡기기능('춘식이2ID')" />
+</body>
+</html>

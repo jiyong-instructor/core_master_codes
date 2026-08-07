@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모달 만들어 보기</title>
+    <style>
+        .모달그룹 {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .모달배경 {
+            width: 100vw;
+            height: 100vh;
+            background-color: lightseagreen;
+            opacity: 0.9;
+        }
+        .모달 {
+            position: absolute;
+            top: calc(50% - 500px/2);
+            left: calc(50% - 400px/2);
+
+            width: 400px;
+            height: 500px;
+            background-color: skyblue;
+        }
+
+    </style>
+    <script>
+        const 모달열기 = () => {
+            document.getElementById("모달그룹ID").style = "display: block";
+        }
+
+        const 모달닫기 = () => {
+            document.getElementById("모달그룹ID").style = "display: none";
+        }
+        
+    </script>
+</head>
+<body>
+    <button onclick="모달열기()">모달열기</button>
+
+    <div id="모달그룹ID" class="모달그룹">
+        <div id="모달배경ID" class="모달배경"></div>
+        <div class="모달"></div>
+    </div>
+
+
+</body>
+</html>

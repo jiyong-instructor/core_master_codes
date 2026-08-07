@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브라우저API - 내 위치 받아오기</title>
+    <script>
+        const 위치보여주기 = (위도, 경도) => {
+            document.getElementById("위치결과").innerText = `위도: ${위도}, 경도: ${경도}`;
+
+            const 지도링크 = document.getElementById("지도링크");
+            지도링크.href = `https://www.openstreetmap.org/?mlat=${위도}&mlon=${경도}`;
+            지도링크.style.display = "inline";
+        }
+
+        const 내위치확인기능 = () => {
+            if(navigator.geolocation === undefined) {
+                alert("이 브라우저는 Geolocation API를 지원하지 않습니다.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (내위치) => {
+                    위치보여주기(
+                        내위치.coords.latitude,
+                        내위치.coords.longitude
+                    )
+                },
+                (에러) => {
+                    alert(`위치 정보를 가져오는데 실패했습니다. 에러 코드: ${에러.code}`);
+                }
+            )
+        }
+
+        // 위치는 개인정보 입니다. 그래서 무조건 사용자에게 권한을 물어보고 얻어올 수 밖에 없습니다.
+        const 샘플위치기능 = () => {
+            위치보여주기(37.5665, 126.9780);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="내위치확인기능()">내 위치 확인</button>
+    <button onclick="샘플위치기능()">샘플 위치 확인</button>
+
+    <p id="위치결과"></p>
+    <a id="지도링크" href="#" target="_blank" rel="noopener noreferrer" style="display: none">지도에서 보기</a>
+</body>
+</html>

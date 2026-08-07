@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모달 만들어 보기</title>
+    <style>
+        .모달그룹 {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .모달배경 {
+            width: 100vw;
+            height: 100vh;
+            background-color: lightseagreen;
+            opacity: 0.9;
+        }
+        .등록모달 {
+            position: absolute;
+            top: calc(50% - 500px/2);
+            left: calc(50% - 400px/2);
+
+            width: 400px;
+            height: 500px;
+            background-color: skyblue;
+        }
+        .등록완료모달 {
+            position: absolute;
+            top: calc(50% - 200px/2);
+            left: calc(50% - 300px/2);
+
+            width: 700px;
+            height: 160px;
+            background-color: orangered;
+        }
+
+    </style>
+    <script>
+        const 모달열기 = (모달종류) => {
+            document.getElementById(모달종류).style = "display: block";
+        }
+
+        const 모달닫기 = (모달종류) => {
+            document.getElementById(모달종류).style = "display: none";
+        }
+        
+    </script>
+</head>
+<body>
+    <button onclick="모달열기('등록모달그룹ID')">모달열기</button>
+
+    <!-- 일기를 등록하는 모달 -->
+    <div id="등록모달그룹ID" class="모달그룹">
+        <div id="모달배경" class="모달배경" onclick="모달닫기('등록모달그룹ID')"></div>
+        <div class="등록모달">
+            <div>
+                제목: <input type="text">
+            </div>
+            <div>
+                내용: <textarea></textarea>
+            </div>
+            <div>
+                <button onclick="모달열기('등록모달그룹ID')">등록하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 등록이 완료될때 뜨는 추가 모달 -->
+     <div id="등록모달그룹ID" class="모달그룹">
+        <div class="모달배경" onclick="모달닫기('등록모달그룹ID')"></div>
+        <div class="등록완료모달">
+            <p>등록이 완료되었습니다.</p>
+        </div>
+     </div>
+
+</body>
+</html>

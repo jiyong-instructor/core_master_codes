@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모달 만들어 보기</title>
+    <style>
+        .모달배경 {
+            display: none;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+            background-color: lightseagreen;
+            opacity: 0.9;
+        }
+    </style>
+    <script>
+        const 모달열기 = () => {
+            document.getElementById("모달배경ID").style = "display: block";
+        }
+
+        
+    </script>
+</head>
+<body>
+    <button onclick="모달열기()">모달열기</button>
+    <div id="모달배경ID" class="모달배경"></div>
+</body>
+</html>

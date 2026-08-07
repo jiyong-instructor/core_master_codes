@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브라우저API 클립보드 실습</title>
+    <script>
+        const 내용복사기능 = () => {
+            const 내용 = document.getElementById("복사할내용").innerText;
+            navigator.clipboard.writeText(내용)
+
+            alert("복사 완료! 클립보드에 저장되었습니다.");
+        }
+
+        const 꾸며서복사기능 = () => {
+            const 내용 = document.getElementById("복사할내용").innerText;
+            const 꾸며진내용 = `*** ${내용} ***`;
+            navigator.clipboard.writeText(꾸며진내용)
+
+            alert("꾸며서 복사 완료! 클립보드에 저장되었습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id="복사할내용">이건 복사할 내용입니다. 비밀이에요</div>
+    <button onclick="내용복사기능()">내용복사하기</button>
+    <button onclick="꾸며서복사기능()">꾸며서복사하기</button>
+</body>
+</html>

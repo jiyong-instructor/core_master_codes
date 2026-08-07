@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키보드와 입력창 실습</title>
+    <script>
+        const 엔터감지등록기능 = () => {
+            alert("게시물을 등록했습니다.");
+        }
+
+        window.addEventListener("keydown", (event) => {
+            if(event.key === "Enter") {
+               if (document.activeElement.id === "제목입력창ID" || document.activeElement.id === "내용입력창ID") {
+                    엔터감지등록기능();
+                }
+            }
+        })
+
+    </script>
+</head>
+<body>
+    제목: <input type="text" id="제목입력창ID">
+    <br/>
+    내용: <input type="text" id="내용입력창ID">
+    <br/>
+    <button onclick="엔터감지등록기능()" id="등록버튼ID">등록</button>
+</body>
+</html>

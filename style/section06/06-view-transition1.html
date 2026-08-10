@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지 이동 효과 실습 - 메인</title>
+    <style>
+        .상자 {
+            background-color: red;
+            width: 1000px;
+            height: 300px;
+            margin: 10px;
+        }
+
+        /* 페이지이동과 관련된 애니메이션 보여주기 위해, 1. 이동전 2. 이동후 둘다 추가해줘야 합니다*/
+        @view-transition {
+            navigation: auto;
+        }
+
+        @keyframes 이전페이지내이메이션 {
+            from {
+                transform: translateX(0%); /* 100%만큼 왼쪽으로 이동 */
+            } to {
+                transform: translateX(100%); /* 원래 위치로 이동 */
+            }
+        }
+
+        ::view-transition-old(root) {
+            animation-name: 이전페이지내이메이션;
+            animation-duration: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <a href="./06-view-transition2.html">페이지 이동하기</a>
+    <div class="상자"></div>
+    <div class="상자"></div>
+    <div class="상자"></div>
+</body>
+</html>

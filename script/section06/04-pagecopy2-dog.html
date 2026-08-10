@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지 복사 방식 실습</title>
+    <style>
+        .배너 {
+            background-color: yellow;
+            width: 100%;
+            height: 200px;
+        }
+        .네비게이션 {
+            background-color: green;
+            width: 100%;
+            height: 50px;
+        }
+    </style>
+    <script>
+        const 메뉴이동 = (내가클릭한것) => { // 인자값 받아서 아래 스위치 문으로 경우의 수 분리해줘요 😃
+            switch(내가클릭한것) {
+                case "일기클릭함":
+                    location.href = "./04-pagecopy1-diary.html"
+                    break;
+                case "강아지클릭함":
+                    location.href = "./04-pagecopy2-dog.html"
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="배너">배너이미지</div>
+    <div class="네비게이션">
+        <button onclick="메뉴이동('일기클릭함')">일기메뉴</button>
+        <button onclick="메뉴이동('강아지클릭함')">강아지메뉴</button>
+    </div>
+    <div>
+        <p>강아지 화면입니다.</p>
+        <p>강아지1</p>
+        <p>강아지2</p>
+    </div>
+</body>
+</html>

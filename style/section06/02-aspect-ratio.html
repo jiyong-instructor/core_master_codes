@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>이미지비율 실습</title>
+    <style>
+        .이미지1 {
+            width: 300px;
+            /* 비율로 처리되는 속성이기 때문에 한쪽만 알면 자동 계산 되어요*/
+
+            aspect-ratio: 3 / 1; /* 가로세로 비율을 3:1로 설정 */
+        }
+        .이미지2 {
+            height: 300px;
+
+            aspect-ratio: 3 / 1; /* 가로세로 비율을 1:2로 설정 */
+        }
+        .태그 {
+            height: 300px;
+
+            aspect-ratio: 1 / 2; /* 가로세로 비율을 1:2로 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div>3:1 방식(가로사이즈를 알고 있을 때)</div>
+    <img src="./00-image.jpg" class="이미지1" />
+
+    <div>3:1 방식(세로사이즈를 알고 있을 때)</div>
+    <img src="./00-image.jpg" class="이미지2" />
+
+    <div>1:2 방식(태그도 됨)</div>
+    <button class="태그">버튼</button>
+</body>
+</html>

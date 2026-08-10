@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지이동효과 실습 - 상세</title>
+    <style>
+        .이미지 {
+            background-color: yellow;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+        }
+        .페이지 {
+            animation-name: 다음페이지애니메이션;
+            animation-duration: 0.5s;
+        }
+
+        @keyframes 다음페이지애니메이션 {
+            from {
+                transform: translateX(100%); /* 100%만큼 오른쪽으로 이동 */
+            } to {
+                transform: translateX(0%); /* 원래 위치로 이동 */
+            }
+        }
+
+        @keyframes 뒤로가기애니메이션 {
+            from {
+                transform: translateX(0%); /* 100%만큼 왼쪽으로 이동 */
+            } to {
+                transform: translateX(100%); /* 원래 위치로 이동 */
+            }
+        }
+    </style>
+    <script>
+        const 나가기기능 = () => {
+            document.getElementById("페이지").style.animationName = "뒤로가기애니메이션";
+
+            window.addEventListener("animationend", () => {
+                history.back(); // 브라우저의 뒤로가기 버튼 클릭해줘!
+                // location.href = "./04-page-effect2-detail.html"; // 이거는 그냥 페이지 이동
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="페이지" id="페이지">
+        <button onclick="나가기기능()">뒤로가기</button>
+        <div class="이미지">
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+        </div>
+        <div class="이미지">
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+        </div>
+    </div>
+</body>
+</html>

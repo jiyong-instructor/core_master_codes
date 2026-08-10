@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>이미지 맞춤비율 실습</title>
+    <style>
+        .스크롤박스 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            height: 500px;
+            overflow: scroll;
+        }
+        .이미지 {
+            width: 300px;
+
+            object-fit: cover; /* 커버 속성을 주시게 되면 사진이 커버 형태로 엘리먼트에 차게 됩니다.*/
+            aspect-ratio: 16 / 9 ;
+        }
+    </style>
+</head>
+<body>
+    <div class="스크롤박스">
+        <img src="./00-image.jpg" class="이미지" />
+        <img src="./00-image2.jpg" class="이미지" />
+        <img src="./00-image3.jpg" class="이미지" />
+        <img src="./00-image4.jpg" class="이미지" />
+        <img src="./00-image5.jpg" class="이미지" />
+        <img src="./00-image6.jpg" class="이미지" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>강아지API Map 실습</title>
+    <script>
+        const 강아지불러오는기능 = () => {
+            fetch("https://dog.ceo/api/breeds/image/random/5").then((받아온결과) => {
+                받아온결과.json().then((객체만뽑힌결과) => {
+                    console.log(객체만뽑힌결과)
+
+                    const 이미지다운로드주소들 = 객체만뽑힌결과.message
+                    const 상태 = 객체만뽑힌결과.status
+                    console.log(`이미지다운로드주소들: ${이미지다운로드주소들}`)
+                    console.log(`상태: ${상태}`)
+
+                    document.getElementById("강아지보여주는곳").innerHTML = 이미지다운로드주소들.map(el => `
+                        <img src="${el}" width="300px" />
+                    `).join("")
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+    <button onclick="강아지불러오는기능()">강아지 불러오기</button>
+    <div id="강아지보여주는곳">
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iframe을 이용한 다중 페이지 표시</title>
+    <style>
+        .배너 {
+            background-color: yellow;
+            width: 100%;
+            height: 200px;
+        }
+        .내비게이션 {
+            background-color: green;
+            width: 100%;
+            height: 50px;
+        }
+        iframe {
+            width: 100%;
+            height: calc(100vh - 250px);
+        }
+    </style>
+    <script>
+        const 메뉴이동 = (내가클릭한것) => {
+            switch(내가클릭한것) {
+                case "일기클릭함":
+                    document.getElementById("아이프레임").src = "./05-iframe2-detail1.html"
+                    break;
+                case "강아지클릭함":
+                    document.getElementById("아이프레임").src = "./05-iframe3-detail2.html"
+                    break;
+                case "네이버":
+                    document.getElementById("아이프레임").src = "https://www.naver.com/"
+                    break;
+                case "야후재팬":
+                    document.getElementById("아이프레임").src = "https://www.yahoo.co.jp/"
+                    break;
+                case "바이두":
+                    document.getElementById("아이프레임").src = "https://www.baidu.com/"
+                    break;
+                case "애플":
+                    document.getElementById("아이프레임").src = "https://www.apple.com/"
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="배너">배너이미지</div>
+    <div class="내비게이션">
+        <button onclick="메뉴이동('일기클릭함')">일기메뉴</button>
+        <button onclick="메뉴이동('강아지클릭함')">강아지메뉴</button>
+
+        <button onclick="메뉴이동('네이버')">네이버</button>
+        <button onclick="메뉴이동('야후재팬')">야후재팬</button>
+        <button onclick="메뉴이동('바이두')">바이두</button>
+        <button onclick="메뉴이동('애플')">애플</button>
+
+
+
+    </div>
+    <iframe id="아이프레임" src="./05-iframe2-detail1.html"></iframe>
+</body>
+</html>

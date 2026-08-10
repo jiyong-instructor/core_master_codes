@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>이미지 맞춤 실습</title>
+    <style>
+        .이미지1 {
+            width: 300px;
+            height: 300px;
+            background-color: coral;
+            object-fit: cover; /* 커버 속성을 주시게 되면 사진이 커버 형태로 엘리먼트에 차게 됩니다.*/
+        }
+        .이미지2 {
+            width: 300px;
+            height: 300px;
+            background-color: lime; /* 'neongreen' is not a standard color name, using 'lime' instead */
+            object-fit: contain; /* 컨테인 속성을 주시게 되면 사진이 엘리먼트 안에 맞춰지게 됩니다.*/
+        }
+    </style>
+</head>
+<body>
+    <div>
+        cover 방식
+    </div>
+    <img src="./00-image.jpg" class="이미지1" />
+    <div>
+        contain 방식
+    </div>
+    <img src="./00-image.jpg" class="이미지2" />
+</body>
+</html>

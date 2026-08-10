@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>프로필API 실습</title>
+    <script>
+        const 프로필불러오는기능 = () => {
+            // 브라우저 내장함수, 브라우저 API는 window에 저장됩니다.
+            document.getElementById("프로필보여주는곳").innerHTML = "인스타 프로필 불러오는 중..."
+
+
+            // 처음으로 프론트엔드의 영역.. 첫 api 받아오는.. 
+            fetch("https://jsonplaceholder.typicode.com/users/1")
+                .then((응답) => { // 받아온 데이터는 JSON이 아니라, 응답객체입니다. 응답객체를 json으로 변환해줘야 합니다.
+                    if(응답.ok === false) throw new Error("프로필을 불러오지 못했어요 ㅠ0 ㅠ")
+                    return 응답.json()  
+                })
+                .then((프로필) => {
+                    console.log(프로필)
+                    document.getElementById("프로필보여주는곳").innerHTML = `
+                        <h1>${프로필.name}</h1>
+                        <p>${프로필.email}</p>
+                        <p>${프로필.phone}</p>
+                        <p>${프로필.website}</p>
+                    `
+                })
+                .catch((에러) => {
+                    console.error(에러)
+                    document.getElementById("프로필보여주는곳").innerHTML = 에러.message
+                })
+        }
+    </script>
+</head>
+<body>
+    <button onclick="프로필불러오는기능()">프로필 불러오기</button>
+    <div id="프로필보여주는곳"></div>
+</body>
+</html>

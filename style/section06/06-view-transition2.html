@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지이동효과 실습 - 상세</title>
+    <style>
+        .이미지 {
+            background-color: yellow;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+        }
+        .페이지 {
+            animation-name: 이전페이지내이메이션;
+            animation-duration: 0.5s;
+        }
+
+        @keyframes 이전페이지내이메이션 {
+            from {
+                transform: translateX(0%); /* 100%만큼 오른쪽으로 이동 */
+            } to {
+                transform: translateX(-100%); /* 원래 위치로 이동 */
+            }
+        }
+
+        @keyframes 뒤로가기애니메이션 {
+            from {
+                transform: translateX(100%); /* 100%만큼 왼쪽으로 이동 */
+            } to {
+                transform: translateX(0%); /* 원래 위치로 이동 */
+            }
+        }
+
+        /* 페이지이동과 관련된 애니메이션 보여주기 위해, 1. 이동전 2. 이동후 둘다 추가해줘야 합니다*/
+        @view-transition {
+            navigation: auto;
+        }
+
+        ::view-transition-old(root) {
+            animation-name: 이전페이지내이메이션;
+            animation-duration: 3s;
+        }
+        ::view-transition-new(root) {
+            animation-name: 다음페이지내이메이션;
+            animation-duration: 1.5s;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="페이지" id="페이지">
+        <div class="이미지">
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+        </div>
+        <div class="이미지">
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+            <p>just saying anything.... blah blah blah</p>
+        </div>
+    </div>
+</body>
+</html>

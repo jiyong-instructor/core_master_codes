@@ -402,6 +402,35 @@
             cursor: default;
         }
 
+        /* 등록 모달 위에 완료 모달을 한 번 더 보여줘요. */
+        .완료모달배경 {
+            z-index: 30;
+        }
+
+        .등록완료모달 {
+            width: 360px;
+            padding: 34px 24px 24px 24px;
+            border-radius: 18px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .완료메시지 {
+            margin-bottom: 28px;
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        .확인버튼 {
+            width: 100px;
+            height: 44px;
+            border: 0;
+            border-radius: 8px;
+            background-color: #111111;
+            color: white;
+            font-size: 14px;
+        }
+
         /* 779px 이하에서는 모바일 화면으로 바꿔요. */
         @media (max-width: 779px) {
             .페이지 {
@@ -543,6 +572,10 @@
                 border-radius: 22px;
             }
 
+            .등록완료모달 {
+                width: 90%;
+            }
+
             .모달제목 {
                 margin-bottom: 28px;
                 font-size: 1.25rem;
@@ -679,12 +712,21 @@
             일기검색하기()
         }
 
-        function 모달열기() {
-            document.getElementById("모달배경").style.display = "flex"
+        function 모달열기(모달아이디) {
+            window.scrollTo({ top: 0 })
+            document.getElementById(모달아이디).style.display = "flex"
+            document.body.style.overflow = "hidden"
         }
 
-        function 모달닫기() {
-            document.getElementById("모달배경").style.display = "none"
+        function 모달닫기(모달아이디) {
+            document.getElementById(모달아이디).style.display = "none"
+            document.body.style.overflow = ""
+        }
+
+        function 등록모달모두닫기() {
+            document.getElementById("등록완료모달배경").style.display = "none"
+            document.getElementById("등록모달배경").style.display = "none"
+            document.body.style.overflow = ""
         }
 
         function 선택한감정가져오기() {
@@ -731,13 +773,20 @@
             document.getElementById("행복").checked = true
             document.getElementById("등록버튼").disabled = true
 
-            모달닫기()
             일기검색하기()
+            모달열기("등록완료모달배경")
         }
 
         function 맨위로가기() {
             window.scrollTo({ top: 0, behavior: "smooth" })
         }
+
+        /* ESC 키를 누르면 열려 있는 등록 모달을 모두 닫아요. */
+        window.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                등록모달모두닫기()
+            }
+        })
 
         window.onload = function () {
             처음화면준비하기()
@@ -775,7 +824,7 @@
                 <option value="기타">기타</option>
             </select>
             <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
-            <button class="글쓰기버튼" onclick="모달열기()">＋ 일기쓰기</button>
+            <button class="글쓰기버튼" onclick="모달열기('등록모달배경')">＋ 일기쓰기</button>
         </div>
 
         <div class="일기목록" id="일기목록"></div>
@@ -791,7 +840,7 @@
 
     <button class="위로버튼" onclick="맨위로가기()">⌃</button>
 
-    <div class="모달배경" id="모달배경" onclick="모달닫기()">
+    <div class="모달배경" id="등록모달배경" onclick="모달닫기('등록모달배경')">
         <div class="모달" onclick="event.stopPropagation()">
             <div class="모달제목">일기 쓰기</div>
 
@@ -817,9 +866,17 @@
             </div>
 
             <div class="모달버튼영역">
-                <button class="닫기버튼" onclick="모달닫기()">닫기</button>
+                <button class="닫기버튼" onclick="모달닫기('등록모달배경')">닫기</button>
                 <button class="등록버튼" id="등록버튼" onclick="일기등록하기()" disabled>등록하기</button>
             </div>
+        </div>
+    </div>
+
+    <!-- 등록 모달보다 위에 겹쳐지는 등록 완료 모달이에요. -->
+    <div class="모달배경 완료모달배경" id="등록완료모달배경" onclick="등록모달모두닫기()">
+        <div class="등록완료모달" onclick="event.stopPropagation()">
+            <div class="완료메시지">등록이 완료되었습니다.</div>
+            <button class="확인버튼" onclick="등록모달모두닫기()">확인</button>
         </div>
     </div>
 </body>

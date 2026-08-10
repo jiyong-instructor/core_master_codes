@@ -230,6 +230,96 @@
             font-size: 20px;
         }
 
+        /* 내용을 복사하면 화면 아래에 잠깐 나타나는 토스트예요. */
+        .토스트 {
+            width: 300px;
+            height: 46px;
+            border-radius: 23px;
+            background-color: #111111;
+            color: white;
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 30;
+            text-align: center;
+            line-height: 46px;
+            font-size: 14px;
+            animation-name: 토스트애니메이션;
+            animation-duration: 0.4s;
+        }
+
+        @keyframes 토스트애니메이션 {
+            from {
+                bottom: 10px;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        /* 브라우저 confirm 대신 직접 만든 삭제 확인 모달이에요. */
+        .삭제모달배경 {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.48);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .삭제확인모달 {
+            width: 360px;
+            padding: 32px 24px 24px 24px;
+            border-radius: 18px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .삭제모달제목 {
+            margin-bottom: 10px;
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        .삭제모달설명 {
+            margin-bottom: 26px;
+            color: #888888;
+            font-size: 14px;
+        }
+
+        .삭제모달버튼영역 {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .삭제취소버튼,
+        .삭제실행버튼 {
+            width: 90px;
+            height: 42px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .삭제취소버튼 {
+            border: 1px solid #dddddd;
+            background-color: white;
+        }
+
+        .삭제실행버튼 {
+            border: 0;
+            background-color: #111111;
+            color: white;
+        }
+
         /* 779px 이하에서는 모바일 화면으로 바꿔요. */
         @media (max-width: 779px) {
             .페이지 {
@@ -369,6 +459,11 @@
             .위로버튼 {
                 display: none;
             }
+
+            .토스트,
+            .삭제확인모달 {
+                width: 90%;
+            }
         }
     </style>
     <script>
@@ -420,9 +515,16 @@
             상세내용그리기()
         }
 
-        /* clipboard 기능은 뒤에서 배우므로 지금은 안내창만 띄워요. */
+        /* 일기 내용을 클립보드에 복사하고 토스트를 보여줘요. */
         function 내용복사하기() {
-            alert("내용 복사 기능은 아직 배우지 않아 버튼 모양만 만들었습니다.")
+            const 일기내용 = document.getElementById("일기내용").innerText
+            navigator.clipboard.writeText(일기내용)
+
+            document.getElementById("복사토스트").style.display = "block"
+
+            setTimeout(function () {
+                document.getElementById("복사토스트").style.display = "none"
+            }, 2000)
         }
 
         function 일기수정하기() {
@@ -434,10 +536,18 @@
             상세내용그리기()
         }
 
-        function 일기삭제하기() {
-            const 정말삭제할지 = confirm("이 일기를 삭제할까요?")
-            if (정말삭제할지 === false) return
+        function 삭제모달열기() {
+            window.scrollTo({ top: 0 })
+            document.getElementById("삭제모달배경").style.display = "flex"
+            document.body.style.overflow = "hidden"
+        }
 
+        function 삭제모달닫기() {
+            document.getElementById("삭제모달배경").style.display = "none"
+            document.body.style.overflow = ""
+        }
+
+        function 일기삭제하기() {
             일기목록 = 일기목록.filter(function (일기) {
                 return 일기.번호 !== 선택한일기.번호
             })
@@ -522,7 +632,7 @@
 
             <div class="관리버튼영역">
                 <button class="관리버튼" onclick="일기수정하기()">수정</button>
-                <button class="관리버튼" onclick="일기삭제하기()">삭제</button>
+                <button class="관리버튼" onclick="삭제모달열기()">삭제</button>
             </div>
 
             <div class="회고영역">
@@ -537,5 +647,18 @@
     </div>
 
     <button class="위로버튼" onclick="맨위로가기()">⌃</button>
+
+    <div class="토스트" id="복사토스트">내용이 클립보드에 복사되었어요.</div>
+
+    <div class="삭제모달배경" id="삭제모달배경" onclick="삭제모달닫기()">
+        <div class="삭제확인모달" onclick="event.stopPropagation()">
+            <div class="삭제모달제목">일기를 삭제할까요?</div>
+            <div class="삭제모달설명">삭제한 일기는 다시 되돌릴 수 없어요.</div>
+            <div class="삭제모달버튼영역">
+                <button class="삭제취소버튼" onclick="삭제모달닫기()">취소</button>
+                <button class="삭제실행버튼" onclick="일기삭제하기()">삭제</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

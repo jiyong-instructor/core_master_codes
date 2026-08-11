@@ -107,6 +107,7 @@
             color: #aaaaaa;
             font-size: 1.375rem;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .선택된탭 {
@@ -271,6 +272,78 @@
             padding: 100px 0;
             color: #999999;
             text-align: center;
+        }
+
+        /* 사진보관함은 처음에는 숨겨 두어요. */
+        .사진메뉴 {
+            display: none;
+            min-height: 400px;
+        }
+
+        .사진도구 {
+            height: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .비율선택 {
+            width: 120px;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .강아지사진목록 {
+            width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* 사진이 도착하기 전에는 움직이는 그라데이션이 보여요. */
+        .강아지사진상자 {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(90deg, #eeeeee, #fafafa, #eeeeee);
+            background-size: 200% 100%;
+            animation: 스켈레톤움직이기 1.2s infinite;
+        }
+
+        .가로형 .강아지사진상자 {
+            aspect-ratio: 4 / 3;
+        }
+
+        .세로형 .강아지사진상자 {
+            aspect-ratio: 3 / 4;
+        }
+
+        .강아지사진 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .사진오류 {
+            padding: 80px 0;
+            color: #999999;
+            text-align: center;
+        }
+
+        @keyframes 스켈레톤움직이기 {
+            from {
+                background-position: 100% 0;
+            }
+            to {
+                background-position: -100% 0;
+            }
         }
 
         /* 하단 영역이에요. */
@@ -553,6 +626,14 @@
                 font-size: 0.875rem;
             }
 
+            .사진도구 {
+                height: 64px;
+            }
+
+            .강아지사진목록 {
+                width: 100%;
+            }
+
             .하단바깥 {
                 margin-top: 60px;
             }
@@ -609,6 +690,7 @@
         let 일기목록 = []
         let 선택한감정 = "전체"
         let 입력한검색어 = ""
+        let 강아지사진을불러왔는지 = false
 
         /* 감정에 맞는 배경색과 글씨색을 알려 주는 함수예요. */
         function 감정배경가져오기(감정) {
@@ -657,6 +739,72 @@
             }
 
             document.getElementById("일기목록").innerHTML = 카드HTML
+        }
+
+        /* 탭을 누르면 필요한 메뉴만 보여줘요. */
+        function 메뉴이동(메뉴이름) {
+            const 일기메뉴 = document.getElementById("일기메뉴")
+            const 사진메뉴 = document.getElementById("사진메뉴")
+            const 일기탭 = document.getElementById("일기탭")
+            const 사진탭 = document.getElementById("사진탭")
+
+            if (메뉴이름 === "일기") {
+                일기메뉴.style.display = "block"
+                사진메뉴.style.display = "none"
+                일기탭.className = "탭버튼 선택된탭"
+                사진탭.className = "탭버튼"
+            } else {
+                일기메뉴.style.display = "none"
+                사진메뉴.style.display = "block"
+                일기탭.className = "탭버튼"
+                사진탭.className = "탭버튼 선택된탭"
+
+                if (강아지사진을불러왔는지 === false) {
+                    강아지사진불러오기()
+                }
+            }
+        }
+
+        /* 강아지 사진 한 장을 만드는 작은 컴포넌트예요. */
+        function 강아지사진컴포넌트(사진주소) {
+            return `
+                <div class="강아지사진상자">
+                    <img class="강아지사진" src="${사진주소}" alt="강아지 사진" onload="사진로딩완료(event)" />
+                </div>
+            `
+        }
+
+        function 강아지사진불러오기() {
+            const 사진목록 = document.getElementById("강아지사진목록")
+            강아지사진을불러왔는지 = true
+
+            사진목록.innerHTML = `
+                <div class="강아지사진상자"></div>
+                <div class="강아지사진상자"></div>
+                <div class="강아지사진상자"></div>
+            `
+
+            fetch("https://dog.ceo/api/breeds/image/random/10")
+                .then(function (받아온결과) {
+                    return 받아온결과.json()
+                })
+                .then(function (객체만뽑힌결과) {
+                    사진목록.innerHTML = 객체만뽑힌결과.message.map(function (사진주소) {
+                        return 강아지사진컴포넌트(사진주소)
+                    }).join("")
+                })
+                .catch(function () {
+                    강아지사진을불러왔는지 = false
+                    사진목록.innerHTML = '<div class="사진오류">사진을 불러오지 못했어요.</div>'
+                })
+        }
+
+        function 사진비율바꾸기(event) {
+            document.getElementById("강아지사진목록").className = "강아지사진목록 " + event.target.value
+        }
+
+        function 사진로딩완료(event) {
+            event.target.style.opacity = 1
         }
 
         /* localStorage에 저장된 일기를 준비해요. */
@@ -810,24 +958,37 @@
         </div>
 
         <div class="탭">
-            <div class="탭버튼 선택된탭">일기보관함</div>
-            <div class="탭버튼">사진보관함</div>
+            <div class="탭버튼 선택된탭" id="일기탭" onclick="메뉴이동('일기')">일기보관함</div>
+            <div class="탭버튼" id="사진탭" onclick="메뉴이동('사진')">사진보관함</div>
         </div>
 
-        <div class="검색영역">
-            <select class="감정선택" onchange="감정바꾸기(event)">
-                <option value="전체">전체</option>
-                <option value="행복해요">행복해요</option>
-                <option value="슬퍼요">슬퍼요</option>
-                <option value="놀랐어요">놀랐어요</option>
-                <option value="화나요">화나요</option>
-                <option value="기타">기타</option>
-            </select>
-            <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
-            <button class="글쓰기버튼" onclick="모달열기('등록모달배경')">＋ 일기쓰기</button>
+        <div id="일기메뉴">
+            <div class="검색영역">
+                <select class="감정선택" onchange="감정바꾸기(event)">
+                    <option value="전체">전체</option>
+                    <option value="행복해요">행복해요</option>
+                    <option value="슬퍼요">슬퍼요</option>
+                    <option value="놀랐어요">놀랐어요</option>
+                    <option value="화나요">화나요</option>
+                    <option value="기타">기타</option>
+                </select>
+                <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
+                <button class="글쓰기버튼" onclick="모달열기('등록모달배경')">＋ 일기쓰기</button>
+            </div>
+
+            <div class="일기목록" id="일기목록"></div>
         </div>
 
-        <div class="일기목록" id="일기목록"></div>
+        <div class="사진메뉴" id="사진메뉴">
+            <div class="사진도구">
+                <select class="비율선택" onchange="사진비율바꾸기(event)">
+                    <option value="기본형">기본형 1:1</option>
+                    <option value="가로형">가로형 4:3</option>
+                    <option value="세로형">세로형 3:4</option>
+                </select>
+            </div>
+            <div class="강아지사진목록 기본형" id="강아지사진목록"></div>
+        </div>
     </div>
 
     <div class="하단바깥">

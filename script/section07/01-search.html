@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간단한 검색 실습</title>
+    <script>
+        const 브랜드 =['애플', '삼성', '엘지', '구글', '마이크로소프트', '소니', '샤오미', '화웨이', '레노버', '델'];
+
+        let 타이머 = "아직실행안함" // 디바운싱을 위해 타이머를 담을 변수
+
+        const 검색기능 = (event) => {
+
+            clearTimeout(타이머); // 이전에 실행된 타이머를 제거 // 시간예약을 없애는 함수
+
+            타이머 = setTimeout(() => { // 1초 뒤에 실행되도록 타이머를 새로 시간예약을 등록하는 함수
+                
+                console.log("인자", event); // 항상 뭐가 들었나 중간중간 콘솔 찍어보면 이해가 쉽습니다.
+                const 내가검색한단어 = event.target.value;
+                console.log("인자 하위 밸류값", 내가검색한단어); // 콘솔 찍기
+
+                const 검색결과들 = 브랜드.filter(el => el.includes(내가검색한단어));
+                console.log("검색결과들", 검색결과들); //콘솔 찍기
+
+                document.getElementById("검색결과보여주는곳").innerHTML = 검색결과들.join("<br />"); // 그냥 검색결과 띄어서 보여줄려고 추가한 띄어쓰기 <br /> 태그를 join으로 붙여서 innerHTML에 넣어줌
+
+            }, 1000);
+
+        }
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="검색어를 입력하세요" oninput="검색기능(event)" />
+    <div id="검색결과보여주는곳"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>다크모드 실습</title>
+    <style>
+        .다크모드만들기 {
+            color: white;
+            background-color: black;
+        }
+        .다크모드만들기 input {
+            background-color: gray;
+        }
+        .다크모드만들기 input::placeholder {
+            color: orange;
+        }
+        .다크모드만들기 button {
+            color: blue;
+            background-color: aqua;
+        }
+    </style>
+    <script>
+        const 다크모드기능 = () => {
+            document.body.classList.toggle("다크모드만들기")
+        }
+    </script>
+</head>
+<body>
+    <input type="checkbox" onclick="다크모드기능()" />다크모드
+
+    <br /><br />
+
+    이메일: <input type="text" placeholder="이메일을 입력하세요." /><br />
+    비밀번호: <input type="password" placeholder="비밀번호를 입력하세요." /><br />
+    <button>회원가입</button>
+</body>
+</html>

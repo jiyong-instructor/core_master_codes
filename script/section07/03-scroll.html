@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무한 스크롤 실습</title>
+    <style>
+        .인스타피드 {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+            margin: 50px;
+        }
+    </style>
+    <script>
+        window.addEventListener('scroll', () => {
+
+            const 스크롤퍼센트 = document.documentElement.scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+
+            console.log("스크롤 퍼센트", 스크롤퍼센트);
+
+            if (스크롤퍼센트 >= 0.7) {
+                console.log("스크롤이 70% 이상 내려왔습니다. 새로운 피드를 불러옵니다.");
+                document.getElementById('인스타홈화면').innerHTML += `
+                    <div class="인스타피드"></div>
+                `
+            }
+
+        });
+    </script>
+</head>
+<body id="인스타홈화면">
+    <div class="인스타피드"></div>
+    <div class="인스타피드"></div>
+    <div class="인스타피드"></div>
+</body>
+</html>

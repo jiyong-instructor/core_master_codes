@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상 클래스 선택자, 가상요소 선택자 실습 - 토글 편</title>
+    <style>
+        .토글 {
+            appearance: none; /* 기본 스타일 제거 */
+            width: 40px;
+            height: 24px;
+            background-color: lightgray;
+            border-radius: 20px; /* 둥근 모서리 */
+            padding: 2px; /* 스위치 버튼 처럼 보이기 위해 살짝의 간격 */
+        }
+        .토글::after {
+            display: block;
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%; /* 원형 */
+            transition: transform 0.3s ease; /* 부드러운 이동 효과 */
+        }
+        .토글:checked {
+            background-color: limegreen; /* 체크되었을 때 배경색 변경 */
+        }
+        .토글:checked::after {
+            transform: translateX(calc(100% - 2px - 2px)); /* 체크되었을 때 원형 버튼을 오른쪽으로 이동 */
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" class="토글"  />
+</body>
+</html>

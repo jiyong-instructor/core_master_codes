@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엑센트컬러 예제</title>
+    <style>
+        .체크박스 {
+            accent-color: lime; 
+            /* background-color: lime; */ 
+            /* 이러한 태그들의 배경색을 바꾸는 것은 불가능해요. 하지만 accent-color를 사용하면 체크박스의 색상을 바꿀 수 있다. */
+        }
+        .라디오버튼 {
+            accent-color: orangered;
+        }
+        .크기조절바 {
+            accent-color: gold;
+        }
+        .프로그레스바 {
+            accent-color: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" class="체크박스" />
+    <input type="radio" class="라디오버튼" />
+    <input type="range" max="100" value="70" class="크기조절바"/>
+    <progress max="100" value="70" class="프로그레스바"></progress>
+</body>
+</html>

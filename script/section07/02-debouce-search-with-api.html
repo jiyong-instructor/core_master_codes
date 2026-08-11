@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 디바운싱 검색 실습</title>
+    <script>
+        let 타이머 = "아직실행안함"
+        const 검색기능 = (event) => {
+
+            clearTimeout(타이머); // 이전에 실행된 타이머를 제거 // 시간예약을 없애는 함수
+
+            타이머 = setTimeout(() => {
+
+                const 내가검색한단어 = event.target.value;
+                console.log("인자 하위 밸류값", 내가검색한단어); // 콘솔 찍기
+
+                document.getElementById('검색결과보여주는곳').innerHTML = `
+                    <img src="https://cataas.com/cat/${내가검색한단어}/says/hello" />
+                `
+
+            }, 1000); // 1초 뒤에 실행되도록 타이머를 새로 시간예약을 등록하는 함수
+
+        }
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="고양이 태그를 입력하세요" oninput="검색기능(event)" />
+    <div id="검색결과보여주는곳"></div>
+</body>
+</html>

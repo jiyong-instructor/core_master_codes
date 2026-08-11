@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무한스크롤과 스로틀링 예제</title>
+    <style>
+        .인스타피드 {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+            margin: 50px;
+        }
+    </style>
+    <script>
+
+        let 타이머 = "아직실행안함"
+
+        window.addEventListener('scroll', () => { // 스크롤 이벤트가 발생하면 실행되는 함수
+
+            if(타이머 !== "아직실행안함" ) return // 타이머가 이미 실행중이면 return으로 함수를 종료시켜서 스로틀링을 구현
+            타이머 = setTimeout(() => {
+                타이머 = "아직실행안함" // 타이머가 실행중이 아니라고 판단해서 다시 초기화
+            }, 500) // 0.5초 뒤에 실행되도록 타이머를 새로 시간예약을 등록하는 함수;
+
+            const 스크롤퍼센트 = document.documentElement.scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+            console.log("스크롤 퍼센트", 스크롤퍼센트);
+
+            if (스크롤퍼센트 >= 0.7) {
+                console.log("스크롤이 70% 이상 내려왔습니다. 새로운 피드를 불러옵니다.");
+
+
+                // document.getElementById('인스타홈화면').innerHTML += `
+                //     <div class="인스타피드"></div>
+                // `
+
+                fetch("https://dog.ceo/api/breeds/image/random").then((받아온결과) => { // api를 통해서 강아지 사진을 랜덤으로 가져오는 fetch함수
+                    받아온결과.json().then((객체만뽑힌결과)=>{ // 받아온 결과에서 json() 함수를 이용해 객체만 뽑아낸다.
+
+                        // 사진 주소만 뽑아서 img 태그를 만들고 src 속성에 객체만뽑힌결과.message를 넣어주고, 그 img 태그를 인스타홈화면에 추가해준다.
+                        document.getElementById('인스타홈화면').innerHTML += `
+                            <img src="${객체만뽑힌결과.message}" width="500" height="500" style="object-fit: cover; margin: 50px; background-color: pink;" />
+                        `
+                        // object-fit: cover;를 넣어주면 이미지가 잘려서 들어가지만, 비율이 유지되면서 꽉차게 들어간다.
+
+                    })
+                })
+
+            }
+
+        });
+    </script>
+</head>
+<body id="인스타홈화면">
+    <div class="인스타피드"></div>
+    <div class="인스타피드"></div>
+    <div class="인스타피드"></div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>다크모드 실습</title>
+    <style>
+        :root {
+            --기본글자색: green;
+            --기본배경색: white;
+            --인풋배경색: white;
+            --인풋플레이스홀더색: gray;
+            --버튼글자색: green;
+            --버튼배경색: lightgray;
+        }
+
+        .다크모드만들기 {
+            --기본글자색: white;
+            --기본배경색: black;
+            --인풋배경색: gray;
+            --인풋플레이스홀더색: orange;
+            --버튼글자색: blue;
+            --버튼배경색: aqua;
+        }
+
+        body {
+            color: var(--기본글자색);
+            background-color: var(--기본배경색);
+        }
+        input {
+            background-color: var(--인풋배경색);
+        }
+        input::placeholder {
+            color: var(--인풋플레이스홀더색);
+        }
+        button {
+            color: var(--버튼글자색);
+            background-color: var(--버튼배경색);
+        }
+    </style>
+    <script>
+        const 다크모드기능 = () => {
+            document.body.classList.toggle("다크모드만들기")
+        }
+    </script>
+</head>
+<body>
+    <input type="checkbox" onclick="다크모드기능()" />다크모드
+
+    <br /><br />
+
+    이메일: <input type="text" placeholder="이메일을 입력하세요." /><br />
+    비밀번호: <input type="password" placeholder="비밀번호를 입력하세요." /><br />
+    <button>회원가입</button>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 그라데이션 실습</title>
+    <style>
+        .텍스트1 {
+            /* rgba 컬러 red, green, blue의 색 3원소 조합과 투명도 조합 이에요 */
+            background: linear-gradient(42deg, rgba(103, 206, 224, 1) 0%, rgb(133, 227, 164) 50%, rgb(237, 237, 124) 100% );
+
+            background-clip: text; /* 배경을 글자에만 적용 */
+            color: transparent; /* 글자색을 투명하게 */
+        }
+        .텍스트2 {
+            background: linear-gradient(42deg, rgb(205, 11, 227) 0%, rgb(231, 36, 19) 50%, rgb(176, 10, 241) 100% );
+
+            background-clip: text; /* 배경을 글자에만 적용 */
+            color: transparent; /* 글자색을 투명하게 */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="텍스트1">텍스트 그라데이션</h1>
+    <h1 class="텍스트2">텍스트 그라데이션</h1>
+</body>
+</html>

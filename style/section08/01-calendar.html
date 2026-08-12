@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력 예제</title>
+    <style>
+        .달력 {
+            position: relative;
+        }
+        .달력::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <input type="date" class="달력" />
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력 플레이스 홀더 실습</title>
+    <style>
+        .달력 {
+            position: relative;
+        }
+        .달력::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            z-index: 1;
+        }
+
+        /* 플레이스홀더 비우기 */
+        .달력::-webkit-datetime-edit-text,
+        ::-webkit-datetime-edit-year-field,
+        ::-webkit-datetime-edit-month-field,
+        ::-webkit-datetime-edit-day-field {
+            display: none; /* 달력 선택칸 안에 일, 월, 년 전부 안보이게 없애기 */
+        }
+
+        .달력::after {
+            /* content: "생일을 선택해요"; 달력 선택칸 안에 플레이스홀더 글자 넣기 */
+            content: attr(달력플레이스홀더); /* 주로 실무에서 이렇게 커스텀 달력을 만들땐 이렇게 데이터를 넣는 방식으로 만들어요 */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* 날짜를 선택했을때의 스타일 변경 */
+        .달력:valid::-webkit-datetime-edit-text,
+        :valid::-webkit-datetime-edit-year-field,
+        :valid::-webkit-datetime-edit-month-field,
+        :valid::-webkit-datetime-edit-day-field {
+            /* 날짜를 선택했을 때의 스타일을 여기에 작성하세요 */
+            display: inline; /* 바닥에 숨겨져있는 날짜(연도, 월, 일) 숨김을 다시 해재하고 보이게 합니다. */
+            color: green; /* 날짜를 선택했을 때 글자 색상을 변경합니다. */
+        }
+        .달력:valid::after {
+            display: none; /* 날짜를 선택했을 때 플레이스홀더 글자를 숨깁니다. */
+        }
+        .달력:invalid::after {
+            color: orangered;
+        }
+    </style>
+</head>
+<body>
+    <input type="date" class="달력" 달력플레이스홀더="생일을 선택해요" required /> 
+    <!-- 위 input 태그에 required 속성을 추가하면 필수 입력 항목이 됩니다. -->
+</body>
+</html>

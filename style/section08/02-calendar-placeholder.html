@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력 플레이스 홀더 실습</title>
+    <style>
+        .달력 {
+            position: relative;
+        }
+        .달력::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            z-index: 1;
+        }
+
+        /* 플레이스홀더 비우기 */
+        .달력::-webkit-datetime-edit-text,
+        ::-webkit-datetime-edit-year-field,
+        ::-webkit-datetime-edit-month-field,
+        ::-webkit-datetime-edit-day-field {
+            display: none; /* 달력 선택칸 안에 일, 월, 년 전부 안보이게 없애기 */
+        }
+
+        .달력::after {
+            /* content: "생일을 선택해요"; 달력 선택칸 안에 플레이스홀더 글자 넣기 */
+            content: attr(달력플레이스홀더); /* 주로 실무에서 이렇게 커스텀 달력을 만들땐 이렇게 데이터를 넣는 방식으로 만들어요 */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="date" class="달력" 달력플레이스홀더="생일을 선택해요" />
+</body>
+</html>

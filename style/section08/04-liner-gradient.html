@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선형 그라데이션 실습</title>
+    <style>
+        .상자1 {
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+
+            /* 1. 수직방향 0도, 빨강에서 파랑까지 */
+            background: linear-gradient(0deg, red, blue);
+
+            /* 2. 수평방향 45도, 핑크에서 퍼플까지 */
+            background: linear-gradient(45deg, pink, purple);
+
+            /* 3. 0% ~ 30% 까지 핑크, 30%~100%까지 보라 */
+            background: linear-gradient(45deg, pink 0%, purple 30%, purple 100%);
+
+            /* 4. 핑크~보라 */
+            background: linear-gradient(45deg, pink, purple 30%);
+        }
+        .상자2 {
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+
+            /* 참고) 그라디언트 만들기 주소: https://cssgradient.io/ */
+            background: linear-gradient(45deg, yellow, transparent),
+                        linear-gradient(135deg, red, transparent),
+                        linear-gradient(225deg, blue, transparent),
+                        linear-gradient(315deg, green, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="상자1"></div>
+    <div class="상자2"></div>
+</body>
+</html>

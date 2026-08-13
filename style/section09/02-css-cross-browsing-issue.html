@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크로스브라우징 이슈 실습</title>
+    <style>
+        .달라::-webkit-datetime-edit-text,
+        ::-webkit-datetime-edit-year-field,
+        ::-webkit-datetime-edit-month-field,
+        ::-webkit-datetime-edit-day-field { 
+            display: none;
+         }
+    </style>
+</head>
+<body>
+    날짜: <input type="date" name="date" id="date">
+</body>
+</html>

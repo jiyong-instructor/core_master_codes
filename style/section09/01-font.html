@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폰트 실습</title>
+    <style>
+
+        @font-face {
+            font-family: '지용폰트';
+            src: url('./00-myfont01-thin.woff2');
+        }
+        @font-face {
+            font-family: '지용폰트-bold';
+            src: url('./00-myfont02-thick.woff2');
+        }
+
+        * {
+            font-family: '지용폰트'
+        }
+
+        .얇은폰트 {
+            font-family: '지용폰트';
+        }
+        .두꺼운폰트 {
+            font-family: '지용폰트-bold';
+        }
+    </style>
+</head>
+<body>
+    <div>
+        안녕하세요
+    </div>
+    <div class="얇은폰트">안녕하세요 1</div>
+    <div class="두꺼운폰트">안녕하세요 2</div>
+</body>
+</html>

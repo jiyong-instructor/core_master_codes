@@ -380,6 +380,32 @@
             text-align: center;
         }
 
+        /* 클릭한 페이지 번호만 검은색으로 보여줘요. */
+        .페이지번호영역 {
+            margin-top: 50px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .페이지번호 {
+            width: 34px;
+            height: 34px;
+            border: 0;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .활성페이지 {
+            color: white;
+            background-color: #111111;
+        }
+
+        .페이지번호:disabled {
+            color: #cccccc;
+            cursor: default;
+        }
+
         /* 사진보관함은 처음에는 숨겨 두어요. */
         .사진메뉴 {
             display: none;
@@ -649,6 +675,16 @@
             background-color: white;
         }
 
+        .메인다크모드 .페이지번호 {
+            color: white;
+            background-color: #2b2b2b;
+        }
+
+        .메인다크모드 .활성페이지 {
+            color: #111111;
+            background-color: white;
+        }
+
         .메인다크모드 .하단바깥 {
             background-color: #222222;
         }
@@ -883,6 +919,7 @@
         let 사진불러오는중 = false
         let 검색타이머 = "아직실행안함"
         let 스크롤타이머 = "아직실행안함"
+        let 페이지에보여줄일기목록 = []
 
         /* 감정에 맞는 배경색과 글씨색을 알려 주는 함수예요. */
         function 감정배경가져오기(감정) {
@@ -918,11 +955,17 @@
             `
         }
 
-        /* 받은 배열을 반복해서 화면에 넣어요. */
-        function 일기목록그리기(보여줄목록) {
+        /* 한 페이지에 일기 8개만 잘라서 보여줘요. */
+        function 일기목록그리기(보여줄목록, 클릭한페이지) {
+            if (클릭한페이지 === undefined) 클릭한페이지 = 1
+
+            페이지에보여줄일기목록 = 보여줄목록
+
+            const 시작번호 = (클릭한페이지 - 1) * 8
+            const 현재페이지목록 = 보여줄목록.slice(시작번호, 시작번호 + 8)
             let 카드HTML = ""
 
-            보여줄목록.map(function (일기) {
+            현재페이지목록.map(function (일기) {
                 카드HTML = 카드HTML + 카드한개만들기(일기)
             })
 
@@ -931,6 +974,31 @@
             }
 
             document.getElementById("일기목록").innerHTML = 카드HTML
+            페이지버튼그리기(보여줄목록.length, 클릭한페이지)
+        }
+
+        function 페이지버튼그리기(전체개수, 클릭한페이지) {
+            const 마지막페이지 = Math.ceil(전체개수 / 8)
+
+            const 페이지HTML = new Array(마지막페이지).fill("페이지").map(function (페이지, 순서) {
+                const 페이지번호 = 순서 + 1
+
+                return `
+                    <button
+                        class="페이지번호 ${클릭한페이지 === 페이지번호 ? "활성페이지" : ""}"
+                        onclick="일기목록그리기(페이지에보여줄일기목록, ${페이지번호})"
+                    >${페이지번호}</button>
+                `
+            }).join("")
+
+            const 이전버튼 = `
+                <button class="페이지번호" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 - 1})" ${클릭한페이지 === 1 ? "disabled" : ""}>&lt;</button>
+            `
+            const 다음버튼 = `
+                <button class="페이지번호" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 + 1})" ${클릭한페이지 >= 마지막페이지 ? "disabled" : ""}>&gt;</button>
+            `
+
+            document.getElementById("페이지번호영역").innerHTML = 이전버튼 + 페이지HTML + 다음버튼
         }
 
         /* 탭을 누르면 필요한 메뉴만 보여줘요. */
@@ -1219,6 +1287,7 @@
             </div>
 
             <div class="일기목록" id="일기목록"></div>
+            <div class="페이지번호영역" id="페이지번호영역"></div>
         </div>
 
         <div class="사진메뉴" id="사진메뉴">

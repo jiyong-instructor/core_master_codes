@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 나만의 커스텀(색깔 변수) 만들기 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        철수가좋아하는색깔: "blue",
+                        영희가좋아하는색깔: "red"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 나만의 커스텀 스타일(CSS) 만들기 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .훈이의CSS {
+            color: green;
+            font-size: 30px;
+            font-weight: bold;
+          }
+        }
+
+        .기본CSS {
+            color: blue;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- 나만의 커스텀 스타일 (색깔 변수) 만들기 -->
+    <h1 class="text-3xl font-bold underline text-철수가좋아하는색깔 bg-영희가좋아하는색깔">
+      Hello world!
+    </h1>
+
+    <!-- 나만의 커스텀 스타일(CSS) 만들기 -->
+    <h1 class="기본CSS sm:훈이의CSS">
+        작을때는 초록색
+    </h1>
+  </body>
+</html>

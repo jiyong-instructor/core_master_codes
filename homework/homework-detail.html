@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="작성한 감정 일기의 내용과 회고를 확인하는 상세페이지입니다." />
     <title>지용이의 뭔가 슬픈 다이어리 상세페이지</title>
+    <!-- Pretendard는 인터넷의 CDN 주소에서 불러와요. -->
+    <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <style>
         * {
             box-sizing: border-box;
+        }
+
+        [hidden] {
+            display: none !important;
         }
 
         html {
@@ -16,16 +23,23 @@
         body {
             margin: 0;
             color: #111111;
-            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+            font-family: "Pretendard", "Apple SD Gothic Neo", Arial, sans-serif;
         }
 
         button,
         input {
-            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+            font-family: inherit;
         }
 
         button {
             cursor: pointer;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #4c8bf5;
+            outline-offset: 3px;
         }
 
         .페이지 {
@@ -44,16 +58,21 @@
             top: 0;
             z-index: 10;
             background-color: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
         .로고 {
+            color: inherit;
+            text-decoration: none;
             font-size: 1.125rem;
             font-weight: bold;
             cursor: pointer;
         }
 
         .모바일상세제목 {
+            color: inherit;
+            text-decoration: none;
             display: none;
         }
 
@@ -85,6 +104,7 @@
         }
 
         .상세제목 {
+            margin: 0;
             padding-bottom: 14px;
             border-bottom: 2px solid #111111;
             font-size: 1.5rem;
@@ -166,6 +186,7 @@
         }
 
         .회고제목 {
+            margin-top: 0;
             margin-bottom: 18px;
             font-size: 1.125rem;
             font-weight: bold;
@@ -465,6 +486,16 @@
                 width: 90%;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
     </style>
     <script>
         let 일기목록 = []
@@ -495,7 +526,7 @@
 
             if (저장된일기 === null) {
                 alert("메인 페이지에서 일기를 먼저 확인해 주세요.")
-                location.href = "./homework-example.html"
+                location.href = "./index.html"
                 return
             }
 
@@ -507,7 +538,7 @@
 
             if (찾은일기.length === 0) {
                 alert("일기를 찾을 수 없습니다.")
-                location.href = "./homework-example.html"
+                location.href = "./index.html"
                 return
             }
 
@@ -518,7 +549,17 @@
         /* 일기 내용을 클립보드에 복사하고 토스트를 보여줘요. */
         function 내용복사하기() {
             const 일기내용 = document.getElementById("일기내용").innerText
-            navigator.clipboard.writeText(일기내용)
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(일기내용)
+            } else {
+                const 임시입력창 = document.createElement("textarea")
+                임시입력창.value = 일기내용
+                document.body.appendChild(임시입력창)
+                임시입력창.select()
+                document.execCommand("copy")
+                임시입력창.remove()
+            }
 
             document.getElementById("복사토스트").style.display = "block"
 
@@ -553,7 +594,7 @@
             })
 
             localStorage.setItem("감정일기목록", JSON.stringify(일기목록))
-            location.href = "./homework-example.html"
+            location.href = "./index.html"
         }
 
         function 회고등록하기() {
@@ -588,7 +629,7 @@
         }
 
         function 메인으로가기() {
-            location.href = "./homework-example.html"
+            location.href = "./index.html"
         }
 
         function 맨위로가기() {
@@ -603,27 +644,27 @@
 </head>
 <body>
     <div class="페이지">
-        <div class="상단">
-            <div class="로고" onclick="메인으로가기()">지용이의 뭔가 슬픈 다이어리</div>
-            <div class="모바일상세제목" onclick="메인으로가기()">〈 &nbsp;일기 상세</div>
+        <header class="상단">
+            <a class="로고" href="./index.html">지용이의 뭔가 슬픈 다이어리</a>
+            <a class="모바일상세제목" href="./index.html">〈 &nbsp;일기 상세</a>
             <div class="다크모드">
                 <div>다크모드</div>
-                <div class="스위치"><div class="스위치동그라미"></div></div>
+                <div class="스위치" aria-hidden="true"><div class="스위치동그라미"></div></div>
             </div>
-        </div>
+        </header>
 
-        <div class="상세영역">
-            <div class="상세제목" id="상세제목">이것은 타이틀 입니다.</div>
+        <main class="상세영역">
+            <h1 class="상세제목" id="상세제목">이것은 타이틀 입니다.</h1>
 
             <div class="일기정보">
                 <div class="감정정보">
-                    <div class="감정이모지" id="감정이모지">😊</div>
+                    <div class="감정이모지" id="감정이모지" aria-hidden="true">😊</div>
                     <div class="감정글씨" id="감정글씨">행복해요</div>
                 </div>
                 <div class="작성일" id="작성일">2024. 07. 12 작성</div>
             </div>
 
-            <div class="내용제목">내용</div>
+            <h2 class="내용제목">내용</h2>
             <div class="일기내용" id="일기내용">내용이 들어갑니다.</div>
 
             <div class="복사영역">
@@ -635,24 +676,25 @@
                 <button class="관리버튼" onclick="삭제모달열기()">삭제</button>
             </div>
 
-            <div class="회고영역">
-                <div class="회고제목">회고</div>
+            <section class="회고영역">
+                <h2 class="회고제목">회고</h2>
                 <div class="회고입력영역">
+                    <label for="회고입력" hidden>회고 내용</label>
                     <input class="회고입력" id="회고입력" type="text" placeholder="회고를 남겨보세요." />
                     <button class="회고등록버튼" onclick="회고등록하기()">입력</button>
                 </div>
                 <div class="회고목록" id="회고목록"></div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
-    <button class="위로버튼" onclick="맨위로가기()">⌃</button>
+    <button class="위로버튼" aria-label="맨 위로 이동" onclick="맨위로가기()">⌃</button>
 
-    <div class="토스트" id="복사토스트">내용이 클립보드에 복사되었어요.</div>
+    <div class="토스트" id="복사토스트" role="status" aria-live="polite">내용이 클립보드에 복사되었어요.</div>
 
     <div class="삭제모달배경" id="삭제모달배경" onclick="삭제모달닫기()">
-        <div class="삭제확인모달" onclick="event.stopPropagation()">
-            <div class="삭제모달제목">일기를 삭제할까요?</div>
+        <div class="삭제확인모달" role="alertdialog" aria-modal="true" aria-labelledby="삭제모달제목" onclick="event.stopPropagation()">
+            <div class="삭제모달제목" id="삭제모달제목">일기를 삭제할까요?</div>
             <div class="삭제모달설명">삭제한 일기는 다시 되돌릴 수 없어요.</div>
             <div class="삭제모달버튼영역">
                 <button class="삭제취소버튼" onclick="삭제모달닫기()">취소</button>

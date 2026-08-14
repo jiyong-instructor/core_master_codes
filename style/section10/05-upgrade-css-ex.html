@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>SASS 실습</title>
+    <style id="철수의스타일">
+
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.13/sass.sync.js"></script>
+    <script>
+        fetch("./05-upgrade-css.scss").then(불러온SASS파일 => {
+            불러온SASS파일.text().then(불러온SASS파일텍스트소스코드 => {
+                Sass.compile(불러온SASS파일텍스트소스코드, (CSS로변경된내용) => {
+                    console.log(CSS로변경된내용)
+                    console.log(CSS로변경된내용.text)
+
+                    document.getElementById("철수의스타일").innerText = CSS로변경된내용.text
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <button class="버튼-1">철수 버튼</button>
+    <button class="버튼-2">영희 버튼</button>
+    <button class="버튼-3">훈이 버튼</button>
+</body>
+</html>

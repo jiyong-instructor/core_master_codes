@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="감정 일기와 강아지 사진, MBTI 연애 테스트를 모아보는 다이어리입니다." />
     <title>지용이의 뭔가 슬픈 다이어리</title>
+    <!-- Pretendard는 인터넷의 CDN 주소에서 불러와요. -->
+    <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <style>
         /* 모든 태그의 크기를 계산하기 쉽게 만들어요. */
         * {
@@ -17,18 +20,28 @@
         body {
             margin: 0;
             color: #111111;
-            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+            font-family: "Pretendard", "Apple SD Gothic Neo", Arial, sans-serif;
         }
 
         button,
         input,
         select,
         textarea {
-            font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+            font-family: inherit;
         }
 
         button {
             cursor: pointer;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        .카드:focus-visible {
+            outline: 3px solid #4c8bf5;
+            outline-offset: 3px;
         }
 
         .페이지 {
@@ -48,10 +61,13 @@
             top: 0;
             z-index: 10;
             background-color: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
         .로고 {
+            color: inherit;
+            text-decoration: none;
             font-size: 1.125rem;
             font-weight: bold;
             cursor: pointer;
@@ -71,6 +87,7 @@
 
         /* 상단 스위치 하나로 전체 다크모드를 바꿔요. */
         .스위치 {
+            -webkit-appearance: none;
             appearance: none;
             width: 48px;
             height: 28px;
@@ -126,7 +143,9 @@
 
         .탭버튼 {
             padding: 0 8px 12px 8px;
+            border: 0;
             color: #aaaaaa;
+            background-color: transparent;
             font-size: 1.375rem;
             font-weight: bold;
             cursor: pointer;
@@ -176,6 +195,7 @@
 
         .드롭다운제목 {
             --선택한필터: "전체";
+            -webkit-appearance: none;
             appearance: none;
             width: 100%;
             height: 48px;
@@ -469,6 +489,236 @@
             text-align: center;
         }
 
+        /* 나만의 아이디어 탭인 MBTI 연애연구소예요. */
+        .엠비티아이메뉴 {
+            min-height: 400px;
+            padding-top: 36px;
+            display: none;
+        }
+
+        .엠비티아이상자 {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 42px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #fff3c9, #ffdce8);
+            text-align: center;
+        }
+
+        /* 결과 화면만 넓혀서 결과와 궁합을 나란히 보여줘요. */
+        .결과화면 {
+            max-width: 1050px;
+            padding: 30px;
+        }
+
+        .결과전체 {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 24px;
+        }
+
+        .나의결과영역 {
+            padding: 28px;
+            border-radius: 18px;
+            background-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .엠비티아이아이콘 {
+            font-size: 4rem;
+        }
+
+        .엠비티아이큰제목 {
+            margin: 14px 0 10px 0;
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        .엠비티아이설명 {
+            margin: 0 0 26px 0;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        .테스트시작버튼,
+        .궁합버튼 {
+            min-height: 46px;
+            padding: 0 22px;
+            border: 0;
+            border-radius: 23px;
+            color: white;
+            background-color: #111111;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .테스트시작버튼:hover,
+        .궁합버튼:hover {
+            transform: scale(1.05);
+        }
+
+        .진행정보 {
+            margin-bottom: 8px;
+            color: #777777;
+            text-align: left;
+        }
+
+        .진행바 {
+            height: 10px;
+            margin-bottom: 34px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .진행중 {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #ff5b72;
+            transition: width 0.3s;
+        }
+
+        .질문제목 {
+            min-height: 76px;
+            margin-bottom: 24px;
+            font-size: 1.35rem;
+            line-height: 1.5;
+        }
+
+        .선택버튼목록 {
+            display: grid;
+            gap: 12px;
+        }
+
+        .선택버튼 {
+            min-height: 64px;
+            padding: 14px 18px;
+            border: 1px solid #dddddd;
+            border-radius: 14px;
+            background-color: white;
+            font: inherit;
+            line-height: 1.45;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .선택버튼:hover {
+            border-color: #ff5b72;
+            transform: translateY(-2px);
+        }
+
+        .결과타입 {
+            color: #ff4f68;
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+
+        .결과한줄 {
+            margin: 8px 0 26px 0;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .결과정보목록 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .결과화면 .결과정보목록 {
+            grid-template-columns: 1fr;
+        }
+
+        .결과정보 {
+            padding: 20px;
+            border-radius: 14px;
+            background-color: rgba(255, 255, 255, 0.65);
+            line-height: 1.6;
+        }
+
+        .결과정보제목 {
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .궁합영역 {
+            padding: 34px;
+            border-radius: 18px;
+            background-color: rgba(255, 255, 255, 0.82);
+            text-align: left;
+        }
+
+        .궁합작은글 {
+            margin-bottom: 8px;
+            color: #ff4f68;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .궁합제목 {
+            margin-bottom: 22px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            line-height: 1.35;
+        }
+
+        .궁합도구 {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+        }
+
+        .궁합선택 {
+            width: 100%;
+            height: 60px;
+            padding: 0 18px;
+            border: 2px solid #ff8193;
+            border-radius: 16px;
+            background-color: white;
+            font: inherit;
+            font-size: 1.15rem;
+            font-weight: bold;
+            box-shadow: 0 6px 16px rgba(255, 79, 104, 0.12);
+        }
+
+        .궁합버튼 {
+            min-height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ff4f68, #ff8293);
+            font-size: 1rem;
+            box-shadow: 0 6px 16px rgba(255, 79, 104, 0.22);
+        }
+
+        .궁합결과 {
+            min-height: 180px;
+            margin-top: 16px;
+            padding: 28px;
+            border-radius: 16px;
+            background-color: #fff4f6;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .궁합결과 strong {
+            color: #ff4f68;
+            font-size: 1.35rem;
+        }
+
+        .찰떡추천 {
+            margin-top: 14px;
+            color: #666666;
+            font-size: 0.9rem;
+        }
+
+        .다시버튼 {
+            margin-top: 12px;
+            border: 0;
+            background: none;
+            color: #666666;
+            text-decoration: underline;
+        }
+
         @keyframes 스켈레톤움직이기 {
             from {
                 background-position: 100% 0;
@@ -549,6 +799,7 @@
 
         .입력라벨 {
             margin-bottom: 10px;
+            display: block;
             font-size: 14px;
         }
 
@@ -683,6 +934,37 @@
         .메인다크모드 .활성페이지 {
             color: #111111;
             background-color: white;
+        }
+
+        .메인다크모드 .엠비티아이상자 {
+            background: linear-gradient(135deg, #3d3828, #432f37);
+        }
+
+        .메인다크모드 .엠비티아이설명,
+        .메인다크모드 .진행정보,
+        .메인다크모드 .다시버튼 {
+            color: #cccccc;
+        }
+
+        .메인다크모드 .테스트시작버튼,
+        .메인다크모드 .궁합버튼 {
+            color: #111111;
+            background-color: white;
+        }
+
+        .메인다크모드 .선택버튼,
+        .메인다크모드 .결과정보,
+        .메인다크모드 .궁합선택,
+        .메인다크모드 .나의결과영역,
+        .메인다크모드 .궁합영역,
+        .메인다크모드 .궁합결과 {
+            color: white;
+            border-color: #666666;
+            background-color: #333333;
+        }
+
+        .메인다크모드 .찰떡추천 {
+            color: #cccccc;
         }
 
         .메인다크모드 .하단바깥 {
@@ -859,6 +1141,58 @@
                 width: 100%;
             }
 
+            .엠비티아이메뉴 {
+                padding-top: 20px;
+            }
+
+            .엠비티아이상자 {
+                padding: 30px 18px;
+                border-radius: 20px;
+            }
+
+            .결과화면 {
+                padding: 18px;
+            }
+
+            .결과전체 {
+                grid-template-columns: 1fr;
+            }
+
+            .나의결과영역,
+            .궁합영역 {
+                padding: 24px 18px;
+            }
+
+            .엠비티아이아이콘 {
+                font-size: 3.25rem;
+            }
+
+            .엠비티아이큰제목 {
+                font-size: 1.4rem;
+            }
+
+            .질문제목 {
+                font-size: 1.15rem;
+            }
+
+            .결과정보목록 {
+                grid-template-columns: 1fr;
+            }
+
+            .궁합도구 {
+                grid-template-columns: 1fr;
+            }
+
+            .궁합선택,
+            .궁합버튼 {
+                width: 100%;
+            }
+
+            .궁합결과 {
+                min-height: 150px;
+                padding: 22px;
+            }
+
             .하단바깥 {
                 margin-top: 60px;
             }
@@ -895,7 +1229,19 @@
                 height: 120px;
             }
         }
+
+        /* 움직임에 민감한 사용자는 애니메이션 없이 볼 수 있어요. */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
     </style>
+    <script src="./homework-mbti.js"></script>
     <script>
         /* 처음 화면에 보여 줄 예시 데이터예요. */
         const 기본일기목록 = [
@@ -941,10 +1287,10 @@
         /* 일기 한 개를 카드 HTML로 바꾸는 함수예요. */
         function 카드한개만들기(일기) {
             return `
-                <div class="카드" onclick="상세페이지가기(${일기.번호})">
+                <div class="카드" role="link" tabindex="0" onclick="상세페이지가기(${일기.번호})" onkeydown="if(event.key === 'Enter') 상세페이지가기(${일기.번호})">
                     <div class="사진상자 ${감정배경가져오기(일기.감정)}">
-                        <div class="이모지원">${일기.이모지}</div>
-                        <button class="삭제버튼" onclick="일기삭제하기(event, ${일기.번호})">×</button>
+                        <div class="이모지원" aria-hidden="true">${일기.이모지}</div>
+                        <button class="삭제버튼" aria-label="${일기.제목} 삭제하기" onclick="일기삭제하기(event, ${일기.번호})">×</button>
                     </div>
                     <div class="카드정보">
                         <div class="${감정글씨가져오기(일기.감정)}">${일기.감정}</div>
@@ -986,16 +1332,17 @@
                 return `
                     <button
                         class="페이지번호 ${클릭한페이지 === 페이지번호 ? "활성페이지" : ""}"
+                        aria-label="${페이지번호} 페이지"
                         onclick="일기목록그리기(페이지에보여줄일기목록, ${페이지번호})"
                     >${페이지번호}</button>
                 `
             }).join("")
 
             const 이전버튼 = `
-                <button class="페이지번호" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 - 1})" ${클릭한페이지 === 1 ? "disabled" : ""}>&lt;</button>
+                <button class="페이지번호" aria-label="이전 페이지" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 - 1})" ${클릭한페이지 === 1 ? "disabled" : ""}>&lt;</button>
             `
             const 다음버튼 = `
-                <button class="페이지번호" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 + 1})" ${클릭한페이지 >= 마지막페이지 ? "disabled" : ""}>&gt;</button>
+                <button class="페이지번호" aria-label="다음 페이지" onclick="일기목록그리기(페이지에보여줄일기목록, ${클릭한페이지 + 1})" ${클릭한페이지 >= 마지막페이지 ? "disabled" : ""}>&gt;</button>
             `
 
             document.getElementById("페이지번호영역").innerHTML = 이전버튼 + 페이지HTML + 다음버튼
@@ -1003,33 +1350,23 @@
 
         /* 탭을 누르면 필요한 메뉴만 보여줘요. */
         function 메뉴이동(메뉴이름) {
-            const 일기메뉴 = document.getElementById("일기메뉴")
-            const 사진메뉴 = document.getElementById("사진메뉴")
-            const 일기탭 = document.getElementById("일기탭")
-            const 사진탭 = document.getElementById("사진탭")
+            const 메뉴목록 = ["일기", "사진", "엠비티아이"]
 
-            if (메뉴이름 === "일기") {
-                일기메뉴.style.display = "block"
-                사진메뉴.style.display = "none"
-                일기탭.className = "탭버튼 선택된탭"
-                사진탭.className = "탭버튼"
-            } else {
-                일기메뉴.style.display = "none"
-                사진메뉴.style.display = "block"
-                일기탭.className = "탭버튼"
-                사진탭.className = "탭버튼 선택된탭"
+            메뉴목록.map(function (이름) {
+                const 선택됐는지 = 메뉴이름 === 이름
+                document.getElementById(이름 + "메뉴").style.display = 선택됐는지 ? "block" : "none"
+                document.getElementById(이름 + "탭").className = 선택됐는지 ? "탭버튼 선택된탭" : "탭버튼"
+                document.getElementById(이름 + "탭").setAttribute("aria-selected", 선택됐는지)
+            })
 
-                if (강아지사진을불러왔는지 === false) {
-                    강아지사진불러오기()
-                }
-            }
+            if (메뉴이름 === "사진" && 강아지사진을불러왔는지 === false) 강아지사진불러오기()
         }
 
         /* 강아지 사진 한 장을 만드는 작은 컴포넌트예요. */
         function 강아지사진컴포넌트(사진주소) {
             return `
                 <div class="강아지사진상자">
-                    <img class="강아지사진" src="${사진주소}" alt="강아지 사진" onload="사진로딩완료(event)" />
+                    <img class="강아지사진" src="${사진주소}" alt="랜덤으로 불러온 강아지" onload="사진로딩완료(event)" />
                 </div>
             `
         }
@@ -1245,34 +1582,37 @@
 
         window.onload = function () {
             처음화면준비하기()
+            엠비티아이컴포넌트그리기()
         }
     </script>
 </head>
 <body>
     <div class="페이지">
-        <div class="상단">
-            <div class="로고" onclick="location.href='./homework-example.html'">지용이의 뭔가 슬픈 다이어리</div>
+        <header class="상단">
+            <a class="로고" href="./index.html">지용이의 뭔가 슬픈 다이어리</a>
             <label class="다크모드">
                 <div>다크모드</div>
-                <input class="스위치" type="checkbox" onclick="메인다크모드바꾸기()" />
+                <input class="스위치" type="checkbox" onclick="메인다크모드바꾸기()" aria-label="다크모드 전환" />
             </label>
-        </div>
+        </header>
 
         <div class="배너">
-            <video class="배너비디오" autoplay muted loop playsinline>
+            <video class="배너비디오" autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
                 <source src="https://videos.pexels.com/video-files/7333913/7333913-hd_1920_1080_30fps.mp4" type="video/mp4" />
             </video>
         </div>
 
-        <div class="탭">
-            <div class="탭버튼 선택된탭" id="일기탭" onclick="메뉴이동('일기')">일기보관함</div>
-            <div class="탭버튼" id="사진탭" onclick="메뉴이동('사진')">사진보관함</div>
-        </div>
+        <main>
+            <nav class="탭" role="tablist" aria-label="보관함 메뉴">
+                <button class="탭버튼 선택된탭" id="일기탭" role="tab" aria-selected="true" aria-controls="일기메뉴" onclick="메뉴이동('일기')">일기보관함</button>
+                <button class="탭버튼" id="사진탭" role="tab" aria-selected="false" aria-controls="사진메뉴" onclick="메뉴이동('사진')">사진보관함</button>
+                <button class="탭버튼" id="엠비티아이탭" role="tab" aria-selected="false" aria-controls="엠비티아이메뉴" onclick="메뉴이동('엠비티아이')">MBTI 연애연구소</button>
+            </nav>
 
-        <div id="일기메뉴">
+        <section id="일기메뉴" role="tabpanel" aria-labelledby="일기탭">
             <div class="검색영역">
                 <div class="필터">
-                    <input class="드롭다운제목" id="필터드롭다운" type="checkbox" />
+                    <input class="드롭다운제목" id="필터드롭다운" type="checkbox" aria-label="감정 필터 열기" />
                     <ul class="드롭다운목록">
                         <li><input id="전체필터" type="radio" name="감정필터" value="전체" onclick="감정바꾸기(event)" checked /><label for="전체필터">전체</label></li>
                         <li><input id="행복필터" type="radio" name="감정필터" value="행복해요" onclick="감정바꾸기(event)" /><label for="행복필터">행복해요</label></li>
@@ -1282,39 +1622,43 @@
                         <li><input id="기타필터" type="radio" name="감정필터" value="기타" onclick="감정바꾸기(event)" /><label for="기타필터">기타</label></li>
                     </ul>
                 </div>
-                <input class="검색창" type="text" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
+                <input class="검색창" type="search" aria-label="일기 제목 검색" placeholder="🔍  검색어를 입력해 주세요." oninput="검색어바꾸기(event)" />
                 <button class="글쓰기버튼" onclick="모달열기('등록모달배경')">＋ 일기쓰기</button>
             </div>
 
             <div class="일기목록" id="일기목록"></div>
             <div class="페이지번호영역" id="페이지번호영역"></div>
-        </div>
+        </section>
 
-        <div class="사진메뉴" id="사진메뉴">
+        <section class="사진메뉴" id="사진메뉴" role="tabpanel" aria-labelledby="사진탭">
             <div class="사진도구">
-                <select class="비율선택" onchange="사진비율바꾸기(event)">
+                <select class="비율선택" aria-label="강아지 사진 비율" onchange="사진비율바꾸기(event)">
                     <option value="기본형">기본형 1:1</option>
                     <option value="가로형">가로형 4:3</option>
                     <option value="세로형">세로형 3:4</option>
                 </select>
             </div>
             <div class="강아지사진목록 기본형" id="강아지사진목록"></div>
-        </div>
+        </section>
+
+        <!-- MBTI 화면은 homework-mbti.js가 이 안에 그려줘요. -->
+        <section class="엠비티아이메뉴" id="엠비티아이메뉴" role="tabpanel" aria-labelledby="엠비티아이탭"></section>
+        </main>
     </div>
 
-    <div class="하단바깥">
+    <footer class="하단바깥">
         <div class="하단">
             <div class="하단제목">지용이의 뭔가 슬픈 다이어리</div>
             <div class="하단글씨">대표 : 슬픈지용</div>
             <div class="하단글씨">Copyright © 2024. 슬픈지용 Co., Ltd.</div>
         </div>
-    </div>
+    </footer>
 
-    <button class="위로버튼" onclick="맨위로가기()">⌃</button>
+    <button class="위로버튼" aria-label="맨 위로 이동" onclick="맨위로가기()">⌃</button>
 
     <div class="모달배경" id="등록모달배경" onclick="모달닫기('등록모달배경')">
-        <div class="모달" onclick="event.stopPropagation()">
-            <div class="모달제목">일기 쓰기</div>
+        <div class="모달" role="dialog" aria-modal="true" aria-labelledby="등록모달제목" onclick="event.stopPropagation()">
+            <div class="모달제목" id="등록모달제목">일기 쓰기</div>
 
             <div class="입력묶음">
                 <div class="입력라벨"><b>오늘 기분은 어땠나요?</b></div>
@@ -1328,12 +1672,12 @@
             </div>
 
             <div class="입력묶음">
-                <div class="입력라벨">제목</div>
+                <label class="입력라벨" for="제목">제목</label>
                 <input class="제목입력" id="제목" type="text" placeholder="제목을 입력해 주세요." oninput="등록버튼확인하기()" />
             </div>
 
             <div class="입력묶음">
-                <div class="입력라벨">내용</div>
+                <label class="입력라벨" for="내용">내용</label>
                 <textarea class="내용입력" id="내용" placeholder="내용을 입력해 주세요." oninput="등록버튼확인하기()"></textarea>
             </div>
 
@@ -1346,8 +1690,8 @@
 
     <!-- 등록 모달보다 위에 겹쳐지는 등록 완료 모달이에요. -->
     <div class="모달배경 완료모달배경" id="등록완료모달배경" onclick="등록모달모두닫기()">
-        <div class="등록완료모달" onclick="event.stopPropagation()">
-            <div class="완료메시지">등록이 완료되었습니다.</div>
+        <div class="등록완료모달" role="alertdialog" aria-modal="true" aria-labelledby="완료메시지" onclick="event.stopPropagation()">
+            <div class="완료메시지" id="완료메시지">등록이 완료되었습니다.</div>
             <button class="확인버튼" onclick="등록모달모두닫기()">확인</button>
         </div>
     </div>

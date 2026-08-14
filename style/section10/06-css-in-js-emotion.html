@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS-IN-JS Emotion</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emotion/css@11.13.5/dist/emotion-css.umd.min.js"></script>
+</head>
+<body id="바디">
+    
+</body>
+<script>
+
+
+    const 지용이버튼 = emotion.css`
+        background-color: coral;
+        width: 100px;
+        height: 100px;
+    `;
+
+    document.getElementById("바디").innerHTML = `<button class="${지용이버튼}">지용이 버튼</button>`
+
+
+</script>
+</html>

@@ -1,2 +1,15 @@
+# 패키지
+node_modules/
+
+# 빌드 결과
+dist/
+.next/
+
+# 환경 변수
+.env
+.env.local
+.env.*.local
+
+# 운영체제
 .DS_Store
 **/.DS_Store

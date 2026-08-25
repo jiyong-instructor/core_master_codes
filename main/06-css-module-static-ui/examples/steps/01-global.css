@@ -1,0 +1,15 @@
+/* 모든 페이지에 적용할 기본값은 global CSS에 작성해요. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #222222;
+  font-family: Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}

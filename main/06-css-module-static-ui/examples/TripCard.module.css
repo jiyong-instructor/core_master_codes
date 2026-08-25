@@ -1,0 +1,26 @@
+/* card라는 이름은 이 CSS Module을 가져온 컴포넌트 안에서만 사용돼요. */
+.card {
+  width: 240px;
+  padding: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+}
+
+.image {
+  display: flex;
+  height: 140px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eeeeee;
+}
+
+.location {
+  margin: 12px 0 4px;
+  color: #777777;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 18px;
+}

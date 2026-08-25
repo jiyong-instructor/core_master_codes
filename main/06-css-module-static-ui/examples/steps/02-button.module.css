@@ -1,0 +1,17 @@
+.button {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* 같은 기본 버튼에서 색상 역할만 추가로 나눠요. */
+.primary {
+  color: white;
+  background: #2979ff;
+}
+
+.secondary {
+  color: #222222;
+  background: #eeeeee;
+}

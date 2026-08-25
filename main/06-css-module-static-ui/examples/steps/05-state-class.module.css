@@ -1,0 +1,17 @@
+/* 공통 모양은 message에, 상태별 차이는 success와 error에 나눠 적어요. */
+.message {
+  padding: 12px;
+  border: 1px solid #cccccc;
+}
+
+.success {
+  color: #137333;
+  border-color: #8bc99e;
+  background: #effaf2;
+}
+
+.error {
+  color: #b3261e;
+  border-color: #e5a09b;
+  background: #fff2f1;
+}

@@ -12,6 +12,7 @@ export default function Header() {
         <Link href="/">CSS Module</Link>
         <Link href="/tailwind">Tailwind CSS</Link>
         <Link href="/styled-components">styled-components</Link>
+        <Link href="/07-http-async-cors">HTTP Async CORS</Link>
       </nav>
     </header>
   );

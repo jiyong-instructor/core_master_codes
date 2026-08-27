@@ -1,0 +1,17 @@
+# CRUD에서 데이터를 조회하는 Read를 제외한 CUD를 그냥 데이터 변경이라고 생각합니다.
+# Create, Update, Delete를 수행할 때 사용하는 GraphQL의 기능이 Mutation입니다.
+
+mutation CreateBoard($writer: String!, $title: String!, $contents: String!) {
+  createBoard(writer: $writer, title: $title, contents: $contents) {
+      _id
+      number
+      message
+    }
+}
+
+# Variables
+{
+    "writer": "민지",
+    "title": "민지의 제목입니다.",
+    "contents": "민지의 내용입니다."
+}

@@ -1,0 +1,22 @@
+# 여러 API를 한 문서에 모아두고 골라서 실행하는 종합 연습이에요.
+# Playground 실행 버튼 옆 operationName 드롭다운에서 원하는 이름을 골라 실행해보세요.
+# (query 문서, mutation 문서는 각각 따로 실행해야 해요.)
+
+# ===== Query 모음 =====
+
+query FetchEverything($boardId: ID!, $travelproductId: ID!) {
+  board: fetchBoard(boardId: $boardId) {
+    _id
+    title
+    likeCount
+  }
+  travelproduct: fetchTravelproduct(travelproductId: $travelproductId) {
+    _id
+    name
+    price
+  }
+  questions: fetchTravelproductQuestions(travelproductId: $travelproductId) {
+    _id
+    contents
+  }
+}

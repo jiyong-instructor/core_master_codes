@@ -1,0 +1,10 @@
+query FetchBoard($boardId: ID!) {
+    fetchBoard(boardId: $boardId) {
+        _id
+        writer
+        title
+        contents
+}
+
+# Variables
+# { "boardId": "YOUR_BOARD_ID_HERE" }

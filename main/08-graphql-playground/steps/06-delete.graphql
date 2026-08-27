@@ -1,0 +1,11 @@
+mutation DeleteBoard($number: Int!) {
+    deleteBoard(number: $number) {
+        _id
+        number
+        message
+    }
+}
+
+{
+    "number": 1
+}

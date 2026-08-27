@@ -1,0 +1,46 @@
+# 회원가입 → 로그인 → 내 정보 조회 → 로그아웃, 인증 흐름 전체를 연습해요.
+
+# 1. 회원가입 (Variables 필요)
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(createUserInput: $input) {
+    _id
+    email
+    name
+  }
+}
+
+# 2. 로그인해서 accessToken 받기 (Variables 필요)
+mutation LoginUser($email: String!, $password: String!) {
+  loginUser(email: $email, password: $password) {
+    accessToken
+  }
+}
+
+# 3. 로그인한 내 정보 조회 (accessToken을 HTTP HEADERS에 넣어야 해요)
+query FetchUserLoggedIn {
+  fetchUserLoggedIn {
+    _id
+    email
+    name
+    picture
+    userPoint {
+      amount
+    }
+  }
+}
+
+# 4. 로그아웃 (accessToken 필요, 인자 없음)
+mutation LogoutUser {
+  logoutUser
+}
+
+# Variables 예시r
+# {
+#   "input": { "email": "test@test.com", "password": "1234", "name": "홍길동" },
+#   "email": "test@test.com",
+#   "password": "1234"
+# }
+
+# 엑세스 토큰은 Variables가 아닌 HTTP HEADERS에 넣어야 해요.
+# 3번, 4번을 실행하기 전에는 HTTP HEADERS 탭에 이렇게 넣어주세요.
+# { "Authorization": "Bearer 2번에서_받은_accessToken" }

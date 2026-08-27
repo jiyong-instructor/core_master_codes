@@ -1,0 +1,21 @@
+fragment FetchFields on Board {
+  _id
+  seller
+  name
+  detail
+}
+
+query FetchTwoProducts($firstProductId: ID!, $secondProductId: ID!) {
+  # 같은 API를 두 번 요청할 때 alias로 응답 이름을 구분해요.
+  firstProduct: fetchProduct(id: $firstProductId) {
+    ...FetchFields
+  }r
+  secondProduct: fetchProduct(id: $secondProductId) {
+    ...FetchFields
+  }
+}
+
+{
+    "firstProductId": "138250d4-df0d-4029-84f7-1d0777ffe77a",
+    "secondProductId": "cb946e3a-f82a-4f46-b915-474189b90701"
+}

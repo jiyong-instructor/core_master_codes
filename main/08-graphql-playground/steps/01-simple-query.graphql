@@ -1,0 +1,11 @@
+# Query는 서버 데이터를 조회할 때 사용합니다.
+query FetchBoards {
+  fetchBoards {
+    number
+    writer
+    title
+    contents
+    like
+    createdAt
+  }
+}

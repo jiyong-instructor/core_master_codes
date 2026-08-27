@@ -1,0 +1,15 @@
+mutation UpdateBoard($number: Int!, $writer: String, $title: String, $contents: String) {
+  updateBoard(number: $number, writer: $writer, title: $title, contents: $contents) {
+      _id
+      number
+      message
+    }
+}
+
+# Variables
+{
+    "number": 10,
+    "writer": "민지+지용",
+    "title": "민지+지용의 제목입니다.",
+    "contents": "민지+지용의 내용입니다."
+}

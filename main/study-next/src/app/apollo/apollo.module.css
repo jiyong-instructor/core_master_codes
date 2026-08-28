@@ -1,0 +1,101 @@
+.page {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-weight: 800;
+}
+
+.page h1 {
+  margin-bottom: 16px;
+  font-size: 40px;
+}
+
+.description {
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 44px;
+}
+
+.step {
+  width: calc((100% - 16px) / 2);
+  padding: 24px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #eff6ff;
+}
+
+.step h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.step p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.compare {
+  margin-top: 44px;
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.compare h2 {
+  margin-bottom: 18px;
+}
+
+.compare div {
+  display: flex;
+  gap: 16px;
+}
+
+.compare p {
+  width: 50%;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.compare strong {
+  display: block;
+  color: #111827;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.buttons a {
+  padding: 13px 18px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .step,
+  .compare p {
+    width: 100%;
+  }
+
+  .compare div,
+  .buttons {
+    flex-direction: column;
+  }
+}

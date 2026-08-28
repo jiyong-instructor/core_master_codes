@@ -1,0 +1,85 @@
+.page {
+  width: 100%;
+  max-width: 1080px;
+  min-height: calc(100vh - 72px);
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+.intro {
+  margin-bottom: 56px;
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.intro h1 {
+  margin-bottom: 16px;
+  font-size: 44px;
+}
+
+.intro p:last-child {
+  color: #64748b;
+  line-height: 1.8;
+}
+
+.page section + section {
+  margin-top: 44px;
+}
+
+.page h2 {
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card,
+.apolloCard {
+  width: calc((100% - 32px) / 3);
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: white;
+}
+
+.card:hover,
+.apolloCard:hover {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.card span,
+.apolloCard span {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.apolloCard {
+  background: #eff6ff;
+}
+
+@media (max-width: 760px) {
+  .card,
+  .apolloCard {
+    width: 100%;
+  }
+
+  .intro h1 {
+    font-size: 34px;
+  }
+}

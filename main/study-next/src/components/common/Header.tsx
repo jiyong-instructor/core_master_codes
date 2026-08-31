@@ -16,6 +16,9 @@ export default function Header() {
         <Link className={styles.apolloLink} href="/apollo">
           Apollo Client
         </Link>
+        <Link className={styles.authLink} href="/auth">
+          로그인 · 인증
+        </Link>
       </nav>
     </header>
   );

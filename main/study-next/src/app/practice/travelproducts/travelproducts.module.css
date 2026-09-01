@@ -1,0 +1,240 @@
+.page,
+.error {
+  width: 100%;
+  max-width: 1000px;
+  min-height: calc(100vh - 72px);
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.error {
+  color: #ef4444;
+  text-align: center;
+}
+
+.titleArea {
+  margin-bottom: 28px;
+}
+
+.titleArea p {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.titleArea h1 {
+  margin: 8px 0;
+  font-size: 32px;
+}
+
+.titleArea span,
+.guide {
+  color: #64748b;
+}
+
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.productCard {
+  width: calc((100% - 40px) / 3);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+}
+
+.imageBox,
+.detailImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.imageBox {
+  width: 100%;
+  height: 210px;
+}
+
+.imageBox img,
+.detailImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productCard h2,
+.productCard > p,
+.cardBottom {
+  margin: 14px 16px 0;
+}
+
+.productCard h2 {
+  font-size: 18px;
+}
+
+.productCard > p {
+  overflow: hidden;
+  color: #64748b;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  font-size: 14px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.detailBox {
+  display: flex;
+  gap: 28px;
+}
+
+.detailImage {
+  width: 50%;
+  height: 360px;
+  border-radius: 14px;
+}
+
+.detailInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.detailInfo h1 {
+  font-size: 32px;
+}
+
+.detailInfo strong {
+  font-size: 24px;
+}
+
+.contentsBox,
+.questionSection {
+  margin-top: 44px;
+  padding-top: 32px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.contentsBox h2,
+.questionSection h2 {
+  margin-bottom: 14px;
+}
+
+.contentsBox p {
+  min-height: 100px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.questionForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.questionForm textarea,
+.answerForm input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.questionForm textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.page button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+}
+
+.question > p {
+  margin-top: 8px;
+}
+
+.answerArea {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.answer {
+  margin-bottom: 10px;
+  color: #475569;
+}
+
+.answerForm {
+  display: flex;
+  gap: 10px;
+}
+
+.answerForm input {
+  flex: 1;
+}
+
+@media (max-width: 720px) {
+  .productCard {
+    width: calc((100% - 20px) / 2);
+  }
+
+  .detailBox {
+    flex-direction: column;
+  }
+
+  .detailImage {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .productCard {
+    width: 100%;
+  }
+
+  .answerForm {
+    flex-direction: column;
+  }
+}

@@ -43,7 +43,9 @@
 }
 
 .card,
-.apolloCard {
+.apolloCard,
+.authCard,
+.questionCard {
   width: calc((100% - 32px) / 3);
   min-height: 128px;
   display: flex;
@@ -57,13 +59,17 @@
 }
 
 .card:hover,
-.apolloCard:hover {
+.apolloCard:hover,
+.authCard:hover,
+.questionCard:hover {
   border-color: #2563eb;
   transform: translateY(-2px);
 }
 
 .card span,
-.apolloCard span {
+.apolloCard span,
+.authCard span,
+.questionCard span {
   color: #64748b;
   font-size: 14px;
   line-height: 1.6;
@@ -73,9 +79,21 @@
   background: #eff6ff;
 }
 
+.authCard {
+  background: #faf5ff;
+  border-color: #ddd6fe;
+}
+
+.questionCard {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
 @media (max-width: 760px) {
   .card,
-  .apolloCard {
+  .apolloCard,
+  .authCard,
+  .questionCard {
     width: 100%;
   }
 

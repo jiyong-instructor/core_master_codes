@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <section className={styles.intro}>
-        <p className={styles.eyebrow}>MAIN COURSE · DAY 09</p>
-        <h1>Next.js + Apollo Client</h1>
+        <p className={styles.eyebrow}>MAIN COURSE · DAY 09–10</p>
+        <h1>Apollo Client + 로그인 인증</h1>
         <p>
           앞에서 만든 테스트 페이지를 다시 확인하고, Apollo 게시판 예제를
           순서대로 열어 보세요.
@@ -45,6 +45,34 @@ export default function Home() {
           <Link className={styles.apolloCard} href="/apollo/boards/new">
             <strong>3. 게시글 등록</strong>
             <span>useMutation으로 createBoard 실행하기</span>
+          </Link>
+        </div>
+      </section>
+
+      <section>
+        <h2>Day10 회원가입 · 로그인 · 인증</h2>
+        <div className={styles.cardList}>
+          <Link className={styles.authCard} href="/auth/validation">
+            <strong>1. 정규식 검사</strong>
+            <span>이메일과 비밀번호 입력값 확인하기</span>
+          </Link>
+          <Link className={styles.authCard} href="/auth/signup">
+            <strong>2. 회원가입과 로그인</strong>
+            <span>mutation 실행하고 accessToken 받기</span>
+          </Link>
+          <Link className={styles.authCard} href="/auth/mypage">
+            <strong>3. 보호 페이지</strong>
+            <span>로그인하지 않았다면 로그인 화면으로 이동하기</span>
+          </Link>
+        </div>
+      </section>
+
+      <section>
+        <h2>Day11 숙박권 문의 · 답변</h2>
+        <div className={styles.cardList}>
+          <Link className={styles.questionCard} href="/practice/travelproducts">
+            <strong>문의와 답변 실습</strong>
+            <span>숙박권 목록에서 상세로 이동해 문의·답변 등록하기</span>
           </Link>
         </div>
       </section>

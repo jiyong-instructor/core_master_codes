@@ -76,6 +76,21 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      <section>
+        <h2>Day12 숙박권 등록 · 업로드 · 주소</h2>
+        <div className={styles.cardList}>
+          <Link
+            className={styles.questionCard}
+            href="/practice/travelproducts/new"
+          >
+            <strong>숙박권 등록 완성 예제</strong>
+            <span>
+              다중 이미지, 주소 검색, 좌표와 지도까지 한 번에 연결하기
+            </span>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

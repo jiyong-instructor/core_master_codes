@@ -1,0 +1,14 @@
+# 숙박권 목록은 판매 여부와 검색어를 조건으로 받을 수 있어요.
+query FetchTravelproducts($page: Int, $search: String, $isSoldout: Boolean) {
+  fetchTravelproducts(page: $page, search: $search, isSoldout: $isSoldout) {
+    _id
+    name
+    remarks
+    price
+    tags
+    images
+    seller {
+      name
+    }
+  }
+}

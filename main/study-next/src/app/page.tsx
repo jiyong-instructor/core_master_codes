@@ -91,6 +91,20 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      <section>
+        <h2>Day13 페이지네이션 · 검색 · Codegen</h2>
+        <div className={styles.cardList}>
+          <Link className={styles.questionCard} href="/practice/boards">
+            <strong>게시판 검색·페이지네이션</strong>
+            <span>전체 개수를 이용해 페이지 버튼 만들기</span>
+          </Link>
+          <Link className={styles.questionCard} href="/practice/travelproducts">
+            <strong>숙박권 분류·검색</strong>
+            <span>분류 버튼과 검색 조건을 목록 API에 전달하기</span>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

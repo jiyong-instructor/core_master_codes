@@ -1,0 +1,13 @@
+# 게시판 목록과 전체 개수는 검색어를 똑같이 전달해야 해요.
+query FetchBoardsWithSearch($page: Int, $search: String) {
+  fetchBoards(page: $page, search: $search) {
+    _id
+    writer
+    title
+    createdAt
+  }
+}
+
+query FetchBoardsCount($search: String) {
+  fetchBoardsCount(search: $search)
+}

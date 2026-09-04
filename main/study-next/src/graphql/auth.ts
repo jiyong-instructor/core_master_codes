@@ -41,3 +41,12 @@ export const LOGOUT_USER = gql`
     logoutUser
   }
 `;
+
+// refresh token cookie를 확인해 새 access token을 받습니다.
+export const RESTORE_ACCESS_TOKEN = gql`
+  mutation RestoreAccessToken {
+    restoreAccessToken {
+      accessToken
+    }
+  }
+`;

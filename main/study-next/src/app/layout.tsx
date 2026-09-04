@@ -4,7 +4,9 @@ import "./globals.css";
 import Header from "@/src/components/common/Header";
 import StyledComponentsRegistry from "@/src/lib/StyledComponentsRegisty";
 import ApolloSetting from "@/src/lib/ApolloSetting";
-import { AuthProvider } from "@/src/contexts/AuthContext";
+// import { AuthProvider } from "@/src/contexts/AuthContext";
+import AuthRestore from "../components/auth/AuthRestore";
+import ReactQuerySetting from "../lib/ReactQuerySetting";
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
@@ -28,12 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           그래서 body를 html 바로 아래에 두고, Provider와 Header는 body 안에서 감쌉니다.
         */}
         <StyledComponentsRegistry>
-          <AuthProvider>
+          <ReactQuerySetting>
             <ApolloSetting>
+              <AuthRestore />
               <Header />
               {children}
             </ApolloSetting>
-          </AuthProvider>
+          </ReactQuerySetting>
         </StyledComponentsRegistry>
       </body>
     </html>

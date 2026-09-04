@@ -1,17 +1,19 @@
 "use client";
 
-import { useApolloClient, useQuery } from "@apollo/client/react";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client/react";
 import { useRouter } from "next/navigation";
 import AuthGuard from "@/src/components/auth/AuthGuard";
-import { useAuth } from "@/src/contexts/AuthContext";
-import { FETCH_USER_LOGGED_IN } from "@/src/graphql/auth";
+import { FETCH_USER_LOGGED_IN, LOGOUT_USER } from "@/src/graphql/auth";
+import { useAuthStore } from "@/src/stores/auth-store";
 import type { LoggedInUserData } from "@/src/type/auth";
 import styles from "../auth.module.css";
 
 function MyPageContent() {
   const router = useRouter();
   const apolloClient = useApolloClient();
-  const { accessToken, removeAccessToken } = useAuth();
+  const accessToken = useAuthStore((store) => store.accessToken);
+  const clearAuth = useAuthStore((store) => store.clearAuth);
+  const [logoutUser] = useMutation(LOGOUT_USER);
 
   const { data, loading, error } = useQuery<LoggedInUserData>(
     FETCH_USER_LOGGED_IN,
@@ -23,9 +25,15 @@ function MyPageContent() {
   );
 
   const onClickLogout = async () => {
-    removeAccessToken();
-    await apolloClient.clearStore();
-    router.replace("/auth/login");
+    try {
+      // 서버의 refresh token cookie부터 지워요.
+      await logoutUser({ context: { apiName: "practice" } });
+    } finally {
+      // 서버 요청이 실패해도 현재 브라우저의 로그인 화면은 정리해요.
+      clearAuth();
+      await apolloClient.clearStore();
+      router.replace("/auth/login");
+    }
   };
 
   if (loading) return <p>내 정보를 불러오는 중입니다...</p>;

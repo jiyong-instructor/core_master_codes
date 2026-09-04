@@ -5,15 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { useAuth } from "@/src/contexts/AuthContext";
 import { LOGIN_USER } from "@/src/graphql/auth";
+import { useAuthStore } from "@/src/stores/auth-store";
 import type { LoginData, LoginVariables } from "@/src/type/auth";
 import { validateEmail } from "@/src/utils/validation";
 import styles from "../auth.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { saveAccessToken } = useAuth();
+  const setAccessToken = useAuthStore((store) => store.setAccessToken);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -43,7 +43,8 @@ export default function LoginPage() {
         return;
       }
 
-      saveAccessToken(accessToken);
+      // access token은 브라우저 저장소가 아닌 Zustand 메모리에 저장해요.
+      setAccessToken(accessToken);
       router.push("/auth/mypage");
     } catch (error) {
       setMessage(

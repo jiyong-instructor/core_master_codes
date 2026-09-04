@@ -1,0 +1,22 @@
+# Codegen은 아래 문장과 API 스키마를 비교해 타입을 생성해요.
+query FetchBoardsWithSearch($page: Int, $search: String) {
+  fetchBoards(page: $page, search: $search) {
+    _id
+    writer
+    title
+    createdAt
+  }
+}
+
+query FetchBoardsCount($search: String) {
+  fetchBoardsCount(search: $search)
+}
+
+query FetchTravelproducts($page: Int, $search: String, $isSoldout: Boolean) {
+  fetchTravelproducts(page: $page, search: $search, isSoldout: $isSoldout) {
+    _id
+    name
+    price
+    tags
+  }
+}

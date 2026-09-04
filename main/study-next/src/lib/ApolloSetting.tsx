@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import { SetContextLink } from "@apollo/client/link/context";
 import { ApolloProvider } from "@apollo/client/react";
+import { useAuthStore } from "../stores/auth-store";
 
 // Day09 게시판 예제는 기존 강의용 API를 그대로 사용합니다.
 const exampleHttpLink = new HttpLink({
@@ -23,11 +24,24 @@ const practiceHttpLink = new HttpLink({
 });
 
 // 로그인 후 받은 accessToken을 Authorization 헤더에 넣어 줍니다.
+// const authLink = new SetContextLink((previousContext) => {
+//   const accessToken =
+//     typeof window === "undefined"
+//       ? ""
+//       : (sessionStorage.getItem("accessToken") ?? "");
+
+//   return {
+//     headers: {
+//       ...previousContext.headers,
+//       authorization: accessToken ? `Bearer ${accessToken}` : "",
+//     },
+//   };
+// });
+
+// Zustand 스토어를 통한 헤더 업데이트
 const authLink = new SetContextLink((previousContext) => {
-  const accessToken =
-    typeof window === "undefined"
-      ? ""
-      : (sessionStorage.getItem("accessToken") ?? "");
+  // hook이 아닌 getState를 사용해 요청 순간의 최신 token을 읽어요.
+  const accessToken = useAuthStore.getState().accessToken;
 
   return {
     headers: {

@@ -34,3 +34,9 @@ export type LoginVariables = {
 export type LoggedInUserData = {
   fetchUserLoggedIn: User;
 };
+
+export type RestoreTokenData = {
+  restoreAccessToken: {
+    accessToken: string;
+  };
+};
